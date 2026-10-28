@@ -1,0 +1,8 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { settings } from '../lib/settings';
+---
+<Base title="Thank you" description="Your message was sent." noindex>
+  <Hero headline="Thank you" text={settings.formSuccessMessage} primary={{ label: 'Back to the home page', href: '/' }} />
+</Base>

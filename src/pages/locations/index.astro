@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import { getLocations } from '../../lib/content';
+import { settings } from '../../lib/settings';
+
+const locations = await getLocations();
+---
+<Base title="Areas we serve" description={`Areas served by ${settings.name}.`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Areas', path: '/locations/' }]}>
+  <Hero headline="Areas we serve" />
+  <Section>
+    <CardGrid cards={locations.map((l) => ({ title: l.data.title, text: l.data.summary, href: `/locations/${l.id}/` }))} />
+  </Section>
+</Base>

@@ -1,0 +1,43 @@
+---
+// Loads tracking only for IDs set in site settings. Lead forms push a
+// `generate_lead` event to window.dataLayer, and fire the Meta and Google Ads
+// conversions directly when those IDs are set.
+import { settings } from '../lib/settings';
+import { trackingConfig } from '../lib/tracking';
+interface Props { position: 'head' | 'body' }
+const { position } = Astro.props;
+const t = trackingConfig(settings.tracking);
+const gtagId = t.ga4Id ?? t.googleAdsId;
+const adsSendTo = t.googleAdsId && t.googleAdsLeadLabel ? `${t.googleAdsId}/${t.googleAdsLeadLabel}` : '';
+---
+{position === 'head' && (
+  <>
+    <script is:inline>window.dataLayer = window.dataLayer || [];</script>
+    {t.gtmId && (
+      <script is:inline define:vars={{ id: t.gtmId }}>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',id);
+      </script>
+    )}
+    {gtagId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}></script>
+        <script is:inline define:vars={{ ga4: t.ga4Id ?? '', ads: t.googleAdsId ?? '', adsSendTo }}>
+          window.gtag = function(){dataLayer.push(arguments);};
+          gtag('js', new Date());
+          if (ga4) gtag('config', ga4);
+          if (ads) gtag('config', ads);
+          window.__adsLeadSendTo = adsSendTo;
+        </script>
+      </>
+    )}
+    {t.metaPixelId && (
+      <script is:inline define:vars={{ id: t.metaPixelId }}>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', id); fbq('track', 'PageView');
+      </script>
+    )}
+  </>
+)}
+{position === 'body' && t.gtmId && (
+  <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${t.gtmId}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+)}

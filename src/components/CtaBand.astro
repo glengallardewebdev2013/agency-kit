@@ -1,0 +1,18 @@
+---
+import { settings } from '../lib/settings';
+interface Props { heading: string; text?: string; label?: string; href?: string }
+const { heading, text, label = 'Get a free quote', href = '/contact/' } = Astro.props;
+const tel = settings.phone.replace(/[^\d+]/g, '');
+---
+<section class="py-16">
+  <div class="container-site">
+    <div class="rounded-site bg-accent px-6 py-12 text-accent-ink md:px-12">
+      <h2 class="text-3xl font-bold">{heading}</h2>
+      {text && <p class="mt-3 max-w-2xl">{text}</p>}
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={href} class="btn bg-accent-ink text-accent">{label}</a>
+        {settings.phone && <a href={`tel:${tel}`} class="btn border border-accent-ink text-accent-ink">Call {settings.phone}</a>}
+      </div>
+    </div>
+  </div>
+</section>

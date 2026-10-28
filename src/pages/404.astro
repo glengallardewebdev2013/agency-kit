@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+---
+<Base title="Page not found" description="This page doesn't exist." noindex>
+  <Hero headline="We couldn't find that page" text="It may have moved. Try the home page or our services." primary={{ label: 'Home page', href: '/' }} secondary={{ label: 'Services', href: '/services/' }} />
+</Base>

@@ -1,0 +1,38 @@
+---
+import { settings } from '../lib/settings';
+import { nav } from '../lib/nav';
+const current = Astro.url.pathname;
+const tel = settings.phone.replace(/[^\d+]/g, '');
+---
+<header class="border-b border-line bg-bg">
+  <div class="container-site flex min-h-16 items-center justify-between gap-4 py-3">
+    <a href="/" class="text-lg font-bold text-ink no-underline">{settings.name}</a>
+    <nav aria-label="Main" class="hidden md:block">
+      <ul class="flex items-center gap-6">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-ink no-underline hover:underline"
+              aria-current={current.startsWith(item.href) ? 'page' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="flex items-center gap-3">
+      {settings.phone && <a href={`tel:${tel}`} class="btn btn-primary hidden sm:inline-flex">Call {settings.phone}</a>}
+      <details class="relative md:hidden">
+        <summary class="btn btn-secondary cursor-pointer list-none">Menu</summary>
+        <nav aria-label="Mobile" class="absolute right-0 z-10 mt-2 w-56 rounded-site border border-line bg-bg p-2 shadow-lg">
+          <ul>
+            {nav.map((item) => (
+              <li><a href={item.href} class="block rounded-site px-3 py-2 text-ink no-underline hover:bg-surface">{item.label}</a></li>
+            ))}
+            {settings.phone && <li><a href={`tel:${tel}`} class="block rounded-site px-3 py-2 font-semibold no-underline">Call {settings.phone}</a></li>}
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

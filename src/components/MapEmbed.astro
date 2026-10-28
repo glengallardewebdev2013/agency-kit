@@ -1,0 +1,9 @@
+---
+// Loads only when someone asks for it, so the map never slows the page down.
+interface Props { query: string; title?: string }
+const { query, title = 'Map' } = Astro.props;
+const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+---
+{query.trim() && (
+  <iframe src={src} title={title} loading="lazy" class="aspect-video w-full rounded-site border border-line" referrerpolicy="no-referrer-when-downgrade"></iframe>
+)}

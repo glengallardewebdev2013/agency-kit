@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Seo from '../components/Seo.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Tracking from '../components/Tracking.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { buildMeta, type MetaInput } from '../lib/seo';
+import { breadcrumbSchema, localBusiness, type Crumb } from '../lib/schema';
+import { settings } from '../lib/settings';
+
+interface Props extends Omit<MetaInput, 'path'> {
+  schema?: (Record<string, unknown> | null)[];
+  crumbs?: Crumb[];
+  /** Landing pages drop the main nav so visitors stay on the offer. */
+  minimal?: boolean;
+}
+
+const { schema = [], crumbs, minimal = false, ...metaInput } = Astro.props;
+const meta = buildMeta({ ...metaInput, path: Astro.url.pathname }, settings);
+const jsonLd = [
+  localBusiness(settings),
+  ...(crumbs ? [breadcrumbSchema(crumbs, settings.url)] : []),
+  ...schema,
+].filter((s): s is Record<string, unknown> => s !== null);
+---
+<!doctype html>
+<html lang={settings.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Seo meta={meta} />
+    <JsonLd data={jsonLd} />
+    <Tracking position="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Tracking position="body" />
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 btn btn-primary">Skip to content</a>
+    {minimal ? (
+      <header class="border-b border-line"><div class="container-site py-4 text-lg font-bold">{settings.name}</div></header>
+    ) : (
+      <Header />
+    )}
+    {crumbs && <Breadcrumbs items={crumbs} />}
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

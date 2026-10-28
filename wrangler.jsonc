@@ -1,0 +1,9 @@
+// Cloudflare Workers config. Static pages are served as assets; the worker
+// only handles /keystatic and /api/lead. Fits the Workers free plan.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "client-site",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true }
+}

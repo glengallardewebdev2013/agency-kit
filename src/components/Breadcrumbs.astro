@@ -1,0 +1,14 @@
+---
+import type { Crumb } from '../lib/schema';
+interface Props { items: Crumb[] }
+const { items } = Astro.props;
+---
+<nav aria-label="Breadcrumb" class="container-site pt-6 text-sm text-muted">
+  <ol class="flex flex-wrap gap-2">
+    {items.map((item, i) => (
+      <li class="flex gap-2">
+        {i < items.length - 1 ? <><a href={item.path}>{item.name}</a><span aria-hidden="true">/</span></> : <span aria-current="page">{item.name}</span>}
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,6 @@
+---
+import { toJsonLd } from '../lib/schema';
+interface Props { data: Record<string, unknown>[] }
+const { data } = Astro.props;
+---
+{data.map((item) => <script type="application/ld+json" set:html={toJsonLd(item)} />)}

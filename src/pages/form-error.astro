@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { settings } from '../lib/settings';
+const tel = settings.phone.replace(/[^\d+]/g, '');
+---
+<Base title="Message not sent" description="Your message could not be sent." noindex>
+  <Hero headline="Your message wasn't sent" text="Please check you added your name and an email or phone number, then try again." primary={{ label: 'Back to the form', href: '/contact/' }}>
+    <p class="mt-6">
+      {settings.phone && <>You can also call <a href={`tel:${tel}`}>{settings.phone}</a>. </>}
+      {settings.email && <>Or email <a href={`mailto:${settings.email}`}>{settings.email}</a>.</>}
+    </p>
+  </Hero>
+</Base>

@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getServices } from '../../lib/content';
+import { settings } from '../../lib/settings';
+
+const services = await getServices();
+---
+<Base title="Services" description={`Services from ${settings.name}. ${settings.tagline}`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]}>
+  <Hero headline="Services" text={settings.tagline} />
+  <Section>
+    <CardGrid cards={services.map((s) => ({ title: s.data.title, text: s.data.summary, href: `/services/${s.id}/` }))} />
+  </Section>
+  <CtaBand heading="Not sure what you need?" text="Describe the problem and we'll tell you what it takes to fix it." />
+</Base>

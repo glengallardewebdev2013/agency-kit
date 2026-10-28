@@ -1,0 +1,31 @@
+---
+// Campaign landing pages for ad traffic: no main nav, one action, noindex and
+// kept out of the sitemap so they don't compete with the main pages in search.
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LeadForm from '../../components/LeadForm.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('landing');
+  return pages.map((page) => ({ params: { slug: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const d = page.data;
+---
+<Base title={d.title} description={d.description} minimal noindex>
+  <section class="container-site grid gap-12 py-12 md:grid-cols-2 md:py-20">
+    <div>
+      <h1 class="text-4xl font-bold md:text-5xl">{d.headline}</h1>
+      <p class="mt-4 text-lg text-muted">{d.subhead}</p>
+      {d.points.length > 0 && (
+        <ul class="mt-6 space-y-2">
+          {d.points.map((p) => <li class="flex gap-2"><span aria-hidden="true" class="text-success">✓</span>{p}</li>)}
+        </ul>
+      )}
+    </div>
+    <div class="rounded-site border border-line p-6">
+      <LeadForm id={`lp-${page.id}`} heading={d.formHeading} formName={`lp-${page.id}`} showMessage={false} submitLabel={d.submitLabel} />
+    </div>
+  </section>
+</Base>
