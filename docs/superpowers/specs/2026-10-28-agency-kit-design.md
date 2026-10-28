@@ -1,6 +1,6 @@
 # Agency starter kit: design
 
-Date: 2026-10-28 · Owner: Glen Gallarde · Status: draft, awaiting Glen's approval
+Date: 2026-10-28 · Owner: Glen Gallarde · Status: approved by Glen 2026-10-28 (stack: Astro on Cloudflare, Keystatic CMS standard)
 
 ## Intent
 
@@ -20,7 +20,12 @@ and ships. Glen leads the design; AI does the production.
 - Every site meets the offer's promises by default: fast (Lighthouse 90+ on
   performance, SEO, accessibility and best practices), on-page SEO and schema,
   tracking ready (GA4 / Google Tag Manager / ad pixels), mobile-first.
-- Clients can edit their own text and images without a developer.
+- Every site ships with a CMS (Keystatic) so partner SEO agencies can publish
+  blog posts and manage SEO fields themselves (Glen's decision, 2026-10-28).
+  Design and structural changes still come to Glen as change requests, made
+  with Claude Code under the care plan.
+- Content lives in plain files (`src/content`, JSON and Markdown): the CMS
+  saves each edit as a Git commit, and Claude can edit the same files.
 - Designs come from Glen; the kit never imposes a look. All colours and fonts
   go through design tokens so one file restyles a whole site.
 - White label: nothing in the shipped site names Glen or this kit.
@@ -30,7 +35,7 @@ and ships. Glen leads the design; AI does the production.
 
 - WordPress builds. Planned as a separate lane (Sage theme) once a partner asks.
 - E-commerce, logins, member areas, or app-like features.
-- A visual drag-and-drop page builder for clients.
+- A visual page builder. The CMS edits content and SEO fields, not layout.
 - Self-hosted hosting platform (Coolify); start on a managed static host.
 
 ## Anti-goals (a failure even if it works)
@@ -41,7 +46,7 @@ and ships. Glen leads the design; AI does the production.
 
 ## Approaches considered
 
-1. **Astro + Tailwind + small owned components, Keystatic for editing.**
+1. **Astro + Tailwind + small owned components, Keystatic CMS on files.**
    Static output, best Lighthouse scores, simplest hosting, easy for Claude to
    generate and for Glen to read. Weaker for app-like features (not needed).
 2. **Next.js + Payload CMS.** Full CMS and admin, great for big content sites,
@@ -52,8 +57,9 @@ and ships. Glen leads the design; AI does the production.
    scores consistently.
 
 **Chosen: 1**, recommended by the competitor research and matching the offer
-(small marketing sites, speed promises, cheap hosting). This is Claude's call,
-pending Glen's approval. Payload stays the upgrade path for an unusually large
+(small marketing sites, speed promises, cheap hosting). Approved by Glen.
+Keystatic was briefly dropped, then made standard because SEO agencies want
+to run their own blogs and SEO fields. Payload stays the upgrade path for an unusually large
 Growth Site; WordPress is a separate lane later.
 
 ## What's in the kit
@@ -66,9 +72,13 @@ Growth Site; WordPress is a separate lane later.
   copy-in components only where interactive behaviour is needed (menu, accordion).
 - **Page templates:** home, service, location, about, contact, landing page,
   blog index and post, 404. Matches the three packages.
-- **Content and editing:** Keystatic (Git-based, no database) for pages,
-  services, locations, posts, and site settings (name, phone, address, hours,
-  social links, tracking IDs).
+- **Content and CMS:** JSON and Markdown files in `src/content` for pages,
+  services, locations, posts, landing pages, and site settings (name, phone,
+  address, hours, social links, tracking IDs). Keystatic at `/keystatic` edits
+  them: blog posts in full, plus SEO title and description overrides on
+  services, locations and posts. On the live site it runs in GitHub mode
+  (each save is a commit, which triggers a rebuild); `npm run cms` edits
+  locally.
 - **SEO:** per-page title/description, canonical, Open Graph, sitemap,
   robots.txt, JSON-LD schema (LocalBusiness, Service, FAQ, Breadcrumb, Article)
   generated from content, redirects file for migrations.
@@ -85,19 +95,22 @@ Growth Site; WordPress is a separate lane later.
   check, and the superpowers skills for planning and building. Referenced as
   installed skills, not copied into client repos.
 - **Handoff pack:** a script that produces an unbranded handoff folder (how to
-  edit content, hosting details, Lighthouse report) for the agency.
+  use the CMS, how to request other changes, hosting details, Lighthouse
+  report) for the agency.
 - **New-site script:** `npm run new-site` asks for the client name and basics,
-  writes site settings, and clears demo content.
+  writes site settings and clears the previous client's tracking IDs.
 
 ## Hosting
 
-Cloudflare Pages (Glen's choice, 2026-10-28). Glen wants to start at zero
-cost with two or three hosted clients, so everything must fit the free plan:
-static builds, custom domains, a preview per branch, and no paid add-ons.
-Forms post to a small Pages Function (on the free Workers allowance) that
-forwards submissions by email or webhook, so no paid form service is needed.
-Care plans run on Glen's Cloudflare account; agencies that host their own get
-the static build.
+Cloudflare (Glen's choice, 2026-10-28), on the free plan: Glen wants to start
+at zero cost with two or three hosted clients. The site deploys as a
+Cloudflare Worker with static assets: every page is prerendered and served as
+a static file, and the worker only runs `/keystatic` (the CMS) and
+`/api/lead` (the form endpoint), well inside the free daily request limit.
+No sessions (no KV) and no Cloudflare Images (images are optimised at build
+time), so nothing needs a paid add-on. Forms forward to a webhook (Zapier,
+Make, a CRM or Slack), so no paid form service is needed either. Care plans
+run on Glen's Cloudflare account.
 
 ## Left to the builder
 
@@ -106,4 +119,4 @@ the CI provider details (GitHub Actions assumed).
 
 ## Open questions for Glen
 
-- Approve the stack choice (approach 1)?
+None. Stack and hosting are decided.

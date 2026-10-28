@@ -1,0 +1,23 @@
+{
+  "title": "Harbor Line Plumbing: Portland plumbers, same-day repairs",
+  "description": "Licensed Portland plumbers for leaks, water heaters, drains and repipes. Upfront pricing and same-day appointments for homes and small businesses.",
+  "heroHeadline": "Portland plumbing repairs, done right the first visit",
+  "heroText": "Leaks, water heaters, clogged drains and repipes for homes and small businesses. Upfront prices before we start.",
+  "primaryLabel": "Book a plumber",
+  "secondaryLabel": "See our services",
+  "servicesHeading": "What we fix",
+  "servicesIntro": "Every job starts with a written price, so there are no surprises on the bill.",
+  "reasonsHeading": "Why people call us back",
+  "reasons": [
+    { "title": "Upfront pricing", "text": "You approve the price before any work starts." },
+    { "title": "Same-day visits", "text": "Most repairs are booked and fixed the day you call." },
+    { "title": "Clean worksites", "text": "Floor covers on the way in, everything wiped down on the way out." }
+  ],
+  "faqHeading": "Common questions",
+  "faqs": [
+    { "question": "Do you charge for estimates?", "answer": "No. We give you a written price before we start, and you only pay if you go ahead." },
+    { "question": "Do you handle emergencies?", "answer": "Yes. Call any time for burst pipes, major leaks or no hot water." }
+  ],
+  "ctaHeading": "Need a plumber today?",
+  "ctaText": "Tell us what's going on and we'll call you back with a time and a price."
+}

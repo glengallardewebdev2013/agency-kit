@@ -1,0 +1,17 @@
+---
+import type { Meta } from '../lib/seo';
+interface Props { meta: Meta }
+const { meta } = Astro.props;
+---
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+<link rel="canonical" href={meta.canonical} />
+<meta name="robots" content={meta.robots} />
+<meta property="og:type" content={meta.type} />
+<meta property="og:site_name" content={meta.siteName} />
+<meta property="og:locale" content={meta.locale} />
+<meta property="og:title" content={meta.title} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:url" content={meta.canonical} />
+{meta.image && <meta property="og:image" content={meta.image} />}
+<meta name="twitter:card" content={meta.image ? 'summary_large_image' : 'summary'} />

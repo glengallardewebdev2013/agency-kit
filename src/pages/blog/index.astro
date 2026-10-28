@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import { formatDate, getPosts } from '../../lib/content';
+import { settings } from '../../lib/settings';
+const posts = await getPosts();
+---
+<Base title="Blog" description={`Tips and news from ${settings.name}.`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog/' }]}>
+  <Hero headline="Blog" text="Practical advice from our team." />
+  <Section>
+    {posts.length === 0 ? <p>No posts yet.</p> : (
+      <ul class="max-w-3xl space-y-8">
+        {posts.map((p) => (
+          <li>
+            <h2 class="text-2xl font-bold"><a href={`/blog/${p.id}/`} class="text-ink">{p.data.title}</a></h2>
+            <p class="mt-1 text-sm text-muted"><time datetime={p.data.published.toISOString()}>{formatDate(p.data.published, settings.locale)}</time></p>
+            <p class="mt-2">{p.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </Section>
+</Base>

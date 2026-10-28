@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import CardGrid from '../components/CardGrid.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import home from '../content/singletons/home.json';
+import { getServices } from '../lib/content';
+import { faqSchema } from '../lib/schema';
+
+const services = await getServices();
+---
+<Base title={home.title} description={home.description} schema={[faqSchema(home.faqs)]}>
+  <Hero
+    headline={home.heroHeadline}
+    text={home.heroText}
+    primary={{ label: home.primaryLabel, href: '/contact/' }}
+    secondary={{ label: home.secondaryLabel, href: '/services/' }}
+  />
+  <Section heading={home.servicesHeading} intro={home.servicesIntro} tone="surface">
+    <CardGrid cards={services.map((s) => ({ title: s.data.title, text: s.data.summary, href: `/services/${s.id}/` }))} />
+  </Section>
+  <Section heading={home.reasonsHeading}>
+    <CardGrid cards={home.reasons} />
+  </Section>
+  {home.faqs.length > 0 && (
+    <Section heading={home.faqHeading}>
+      <Faq items={home.faqs} />
+    </Section>
+  )}
+  <CtaBand heading={home.ctaHeading} text={home.ctaText} />
+</Base>

@@ -1,0 +1,37 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getServices } from '../../lib/content';
+import { faqSchema, serviceSchema } from '../../lib/schema';
+import { settings } from '../../lib/settings';
+
+export async function getStaticPaths() {
+  const services = await getServices();
+  return services.map((service) => ({ params: { slug: service.id }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+const d = service.data;
+---
+<Base
+  title={d.seoTitle || d.title}
+  description={d.seoDescription || d.summary}
+  schema={[serviceSchema({ title: d.title, summary: d.summary, slug: service.id }, settings), faqSchema(d.faqs)]}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }, { name: d.title, path: `/services/${service.id}/` }]}
+>
+  <Hero headline={d.title} text={d.summary} primary={{ label: 'Get a quote', href: '/contact/' }} />
+  <Section>
+    <div class="prose-site"><Content /></div>
+  </Section>
+  {d.faqs.length > 0 && (
+    <Section heading="Questions about this service" tone="surface">
+      <Faq items={d.faqs} />
+    </Section>
+  )}
+  <CtaBand heading={`Book ${d.title.toLowerCase()}`} />
+</Base>

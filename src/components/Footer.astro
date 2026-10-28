@@ -1,0 +1,41 @@
+---
+import { settings } from '../lib/settings';
+import { nav } from '../lib/nav';
+const a = settings.address;
+const hasAddress = Boolean(a.street || a.city);
+const tel = settings.phone.replace(/[^\d+]/g, '');
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 border-t border-line bg-surface">
+  <div class="container-site grid gap-10 py-12 md:grid-cols-3">
+    <div>
+      <p class="text-lg font-bold">{settings.name}</p>
+      {settings.tagline && <p class="mt-2 text-muted">{settings.tagline}</p>}
+    </div>
+    <div>
+      <p class="font-semibold">Contact</p>
+      <ul class="mt-2 space-y-1 text-muted">
+        {settings.phone && <li><a href={`tel:${tel}`}>{settings.phone}</a></li>}
+        {settings.email && <li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>}
+        {hasAddress && (
+          <li>
+            <address class="not-italic">
+              {a.street && <>{a.street}<br /></>}
+              {[a.city, a.region].filter(Boolean).join(', ')} {a.postalCode}
+            </address>
+          </li>
+        )}
+        {settings.hours && <li>{settings.hours}</li>}
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <p class="font-semibold">Pages</p>
+      <ul class="mt-2 space-y-1">
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="container-site border-t border-line py-6 text-sm text-muted">
+    <p>Copyright {year} {settings.name}</p>
+  </div>
+</footer>

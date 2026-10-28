@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import CtaBand from '../components/CtaBand.astro';
+import about from '../content/singletons/about.json';
+---
+<Base title={about.title} description={about.description} crumbs={[{ name: 'Home', path: '/' }, { name: about.title, path: '/about/' }]}>
+  <Hero headline={about.heading} text={about.intro} />
+  <Section>
+    <div class="prose-site">{about.paragraphs.map((p) => <p>{p}</p>)}</div>
+  </Section>
+  <CtaBand heading="Work with us" />
+</Base>

@@ -1,0 +1,24 @@
+/*
+  Design tokens. Every colour and font on the site comes from here, so a
+  client's design is applied by editing this one file.
+*/
+:root {
+  --color-bg: oklch(98.5% 0.004 90);
+  --color-surface: oklch(95.5% 0.008 90);
+  --color-ink: oklch(22% 0.02 250);
+  --color-muted: oklch(45% 0.02 250);
+  --color-line: oklch(87% 0.01 250);
+  --color-accent: oklch(48% 0.13 245);
+  --color-accent-ink: oklch(99% 0 0);
+  --color-accent-strong: oklch(40% 0.13 245);
+  --color-focus: oklch(62% 0.19 60);
+  --color-danger: oklch(48% 0.18 27);
+  --color-success: oklch(45% 0.12 150);
+
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-body);
+
+  --radius: 0.5rem;
+  --measure: 68ch;
+  --container: 72rem;
+}

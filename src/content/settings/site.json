@@ -1,0 +1,27 @@
+{
+  "name": "Harbor Line Plumbing",
+  "tagline": "Licensed plumbers for homes and small businesses in Portland",
+  "url": "https://harborline.example.com",
+  "locale": "en-US",
+  "phone": "(503) 555-0142",
+  "email": "hello@harborline.example.com",
+  "address": {
+    "street": "1200 SE Water Ave",
+    "city": "Portland",
+    "region": "OR",
+    "postalCode": "97214",
+    "country": "US"
+  },
+  "hours": "Mon-Fri 7am-6pm, emergency calls 24/7",
+  "businessType": "Plumber",
+  "social": [],
+  "tracking": {
+    "gtmId": "",
+    "ga4Id": "",
+    "metaPixelId": "",
+    "googleAdsId": "",
+    "googleAdsLeadLabel": ""
+  },
+  "formSuccessMessage": "Thanks, we've got your request and will call you back within one business day.",
+  "demo": true
+}

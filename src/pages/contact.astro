@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import LeadForm from '../components/LeadForm.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { settings } from '../lib/settings';
+const a = settings.address;
+const mapQuery = [a.street, a.city, a.region, a.postalCode].filter(Boolean).join(', ');
+const tel = settings.phone.replace(/[^\d+]/g, '');
+---
+<Base title="Contact" description={`Contact ${settings.name}. ${settings.tagline}`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }]}>
+  <Hero headline="Get in touch" text="Send us a message and we'll get back to you within one business day." />
+  <Section>
+    <div class="grid gap-12 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      <LeadForm />
+      <div class="space-y-3">
+        {settings.phone && <p><span class="font-semibold">Phone:</span> <a href={`tel:${tel}`}>{settings.phone}</a></p>}
+        {settings.email && <p><span class="font-semibold">Email:</span> <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
+        {settings.hours && <p><span class="font-semibold">Hours:</span> {settings.hours}</p>}
+        {mapQuery && <MapEmbed query={mapQuery} title={`Map to ${settings.name}`} />}
+      </div>
+    </div>
+  </Section>
+</Base>
