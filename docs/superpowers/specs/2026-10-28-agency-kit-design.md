@@ -91,17 +91,19 @@ Growth Site; WordPress is a separate lane later.
 
 ## Hosting
 
-Default: Cloudflare Pages or Netlify (static, free tier to start, custom
-domains, previews per branch). Care plans run on Glen's account; agencies
-that host their own get the static build.
+Cloudflare Pages (Glen's choice, 2026-10-28). Glen wants to start at zero
+cost with two or three hosted clients, so everything must fit the free plan:
+static builds, custom domains, a preview per branch, and no paid add-ons.
+Forms post to a small Pages Function (on the free Workers allowance) that
+forwards submissions by email or webhook, so no paid form service is needed.
+Care plans run on Glen's Cloudflare account; agencies that host their own get
+the static build.
 
 ## Left to the builder
 
-Exact component APIs, folder layout, which form provider is the default, and
+Exact component APIs, folder layout, the email or webhook service the form function forwards to, and
 the CI provider details (GitHub Actions assumed).
 
 ## Open questions for Glen
 
 - Approve the stack choice (approach 1)?
-- Cloudflare Pages or Netlify as the default host (no strong preference;
-  Claude would pick Cloudflare Pages for cost)?
