@@ -20,6 +20,8 @@ export default defineConfig({
   // Cloudflare Images binding), so the whole site stays on the free plan.
   adapter: localCms ? undefined : cloudflare({ imageService: 'compile', prerenderEnvironment: 'node' }),
   session: false,
+  // The CSS is small, so it is inlined: no render-blocking stylesheet request.
+  build: { inlineStylesheets: 'always' },
   // Keystatic's routes don't use trailing slashes; pages are still built as
   // folders, so their URLs end in a slash.
   trailingSlash: 'ignore',
