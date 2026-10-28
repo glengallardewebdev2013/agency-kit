@@ -1,11 +1,11 @@
 ---
-interface Props { heading?: string; intro?: string; id?: string; tone?: 'plain' | 'surface' }
+interface Props { heading?: string; intro?: string; id?: string; tone?: 'plain' | 'surface' | 'field' }
 const { heading, intro, id, tone = 'plain' } = Astro.props;
 ---
-<section id={id} class:list={['py-16', tone === 'surface' && 'bg-surface']}>
+<section id={id} class:list={['py-16 md:py-24', tone === 'surface' && 'bg-surface', tone === 'field' && 'field']}>
   <div class="container-site">
-    {heading && <h2 class="text-3xl font-bold">{heading}</h2>}
-    {intro && <p class="mt-3 max-w-2xl text-muted">{intro}</p>}
-    <div class:list={[heading || intro ? 'mt-8' : '']}><slot /></div>
+    {heading && <h2 class="max-w-4xl text-4xl md:text-5xl">{heading}</h2>}
+    {intro && <p class:list={['mt-4 max-w-2xl text-lg', tone === 'field' ? '' : 'text-ink-2']}>{intro}</p>}
+    <div class:list={[heading || intro ? 'mt-10' : '']}><slot /></div>
   </div>
 </section>

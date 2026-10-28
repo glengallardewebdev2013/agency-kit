@@ -7,7 +7,7 @@ import { settings } from '../../lib/settings';
 const posts = await getPosts();
 ---
 <Base title="Blog" description={`Tips and news from ${settings.name}.`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog/' }]}>
-  <Hero headline="Blog" text="Practical advice from our team." />
+  <Hero headline="Blog" text="Plain advice on small business websites: what to pay, what to ask and what actually brings in customers." />
   <Section>
     {posts.length === 0 ? <p>No posts yet.</p> : (
       <ul class="max-w-3xl space-y-8">

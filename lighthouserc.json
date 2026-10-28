@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist/client",
-      "url": ["/", "/services/water-heaters/", "/contact/", "/blog/water-heater-signs/", "/lp/free-quote/"],
+      "url": ["/", "/pricing/", "/industries/med-spas/", "/agencies/", "/contact/", "/blog/what-a-0-down-website-plan-should-include/", "/lp/start/"],
       "numberOfRuns": 1,
       "settings": { "chromeFlags": "--no-sandbox --headless=new" }
     },

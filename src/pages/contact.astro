@@ -10,7 +10,7 @@ const mapQuery = [a.street, a.city, a.region, a.postalCode].filter(Boolean).join
 const tel = settings.phone.replace(/[^\d+]/g, '');
 ---
 <Base title="Contact" description={`Contact ${settings.name}. ${settings.tagline}`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }]}>
-  <Hero headline="Get in touch" text="Send us a message and we'll get back to you within one business day." />
+  <Hero headline="Start a project" text="Tell us about your business and what you need. You'll get a reply within one business day, and a 30-minute call if it's a fit." />
   <Section>
     <div class="grid gap-12 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
       <LeadForm />

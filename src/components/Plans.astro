@@ -1,0 +1,32 @@
+---
+import { featuredPlan, money, plans } from '../lib/pricing';
+interface Props { detail?: boolean }
+const { detail = false } = Astro.props;
+---
+<div class="grid gap-px bg-line md:grid-cols-3">
+  {plans.map((p) => {
+    const featured = p.name === featuredPlan;
+    return (
+      <article class:list={['flex flex-col gap-6 p-6 md:p-8', featured ? 'field' : 'bg-bg']} aria-labelledby={`plan-${p.name}`}>
+        <div>
+          <h3 id={`plan-${p.name}`} class="text-2xl">{p.name}{featured && <span class="label ml-3 align-middle">Best for most businesses</span>}</h3>
+          <p class="mt-2">{p.summary}</p>
+        </div>
+        <p>
+          <span class="figure block text-7xl">{money(p.monthly)}</span>
+          <span class="label mt-2 block">a month for 12 months, $0 down</span>
+        </p>
+        <ul class="space-y-1.5">
+          {p.includes.map((i) => <li class="flex gap-2"><span aria-hidden="true">+</span>{i}</li>)}
+        </ul>
+        {detail && (
+          <dl class="mt-auto grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[0.95rem]">
+            <dt class="label">Or upfront</dt><dd>{money(p.upfront)} once</dd>
+            <dt class="label">From month 13</dt><dd>{p.care}</dd>
+            <dt class="label">Early buyout</dt><dd>{money(p.buyout)} per month left</dd>
+          </dl>
+        )}
+      </article>
+    );
+  })}
+</div>

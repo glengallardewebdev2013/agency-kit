@@ -1,3 +1,26 @@
+# GallarDesign website
+
+GallarDesign's own site: human-designed websites, built at AI speed. It sells
+websites directly to small businesses (med spas and aesthetic clinics first,
+then home-improvement contractors), with white label work for agencies as a
+second line. Built on the agency kit, so everything below about the kit
+applies here too.
+
+- Site design: [docs/superpowers/specs/2026-10-28-gallardesign-site-design.md](docs/superpowers/specs/2026-10-28-gallardesign-site-design.md)
+- Look: Hallmark theme "Grid", tokens in `src/styles/tokens.css`
+- Logo files: `brand/` (outlined SVG; the site's own wordmark is `src/components/Logo.astro`)
+- Prices: `src/lib/pricing.ts`, the one place every page reads them from
+
+## Still to fill in
+
+- Glen's photo, real bio facts and portfolio on `/about/`
+- A phone number and city, if wanted, in `src/content/settings/site.json`
+- Tracking IDs (GTM, GA4, Meta, Google Ads) in the CMS
+- `hello@gallardesign.com` must exist once the domain is bought
+- `LEAD_WEBHOOK_URL` on Cloudflare so the form delivers leads
+
+---
+
 # agency-kit
 
 Starter kit for white label client websites. Clone it for each new client

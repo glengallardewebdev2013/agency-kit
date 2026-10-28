@@ -33,10 +33,10 @@ const card = fields.object({
 export default config({
   storage: githubRepo ? { kind: 'github', repo: githubRepo } : { kind: 'local' },
   ui: {
-    brand: { name: 'Site editor' },
+    brand: { name: 'GallarDesign editor' },
     navigation: {
       Blog: ['posts'],
-      Pages: ['home', 'about', 'services', 'locations', 'landing'],
+      Pages: ['home', 'about', 'services', 'industries', 'landing'],
       Settings: ['site'],
     },
   },
@@ -135,15 +135,18 @@ export default config({
         content: fields.markdoc({ label: 'Page content', extension: 'md' }),
       },
     }),
-    locations: collection({
-      label: 'Locations',
+    industries: collection({
+      label: 'Industries',
       slugField: 'title',
-      path: 'src/content/locations/*',
+      path: 'src/content/industries/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Place name' } }),
+        title: fields.slug({ name: { label: 'Industry' } }),
         summary: fields.text({ label: 'Summary', multiline: true }),
-        mapQuery: fields.text({ label: 'Map search', description: 'For example "Portland, OR". Leave empty for no map.' }),
+        headline: fields.text({ label: 'Page headline', description: 'Lead with the outcome and the terms.' }),
+        order: fields.integer({ label: 'Order', defaultValue: 100 }),
+        points: fields.array(fields.text({ label: 'Point' }), { label: 'What the site includes', itemLabel: (p) => p.value ?? '' }),
+        faqs,
         ...seo,
         content: fields.markdoc({ label: 'Page content', extension: 'md' }),
       },

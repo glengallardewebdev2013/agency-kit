@@ -1,23 +1,28 @@
 {
-  "title": "Harbor Line Plumbing: Portland plumbers, same-day repairs",
-  "description": "Licensed Portland plumbers for leaks, water heaters, drains and repipes. Upfront pricing and same-day appointments for homes and small businesses.",
-  "heroHeadline": "Portland plumbing repairs, done right the first visit",
-  "heroText": "Leaks, water heaters, clogged drains and repipes for homes and small businesses. Upfront prices before we start.",
-  "primaryLabel": "Book a plumber",
-  "secondaryLabel": "See our services",
-  "servicesHeading": "What we fix",
-  "servicesIntro": "Every job starts with a written price, so there are no surprises on the bill.",
-  "reasonsHeading": "Why people call us back",
+  "title": "GallarDesign: human-designed websites, built at AI speed",
+  "description": "Websites for growing businesses, designed by a person and built fast. Live in 14 days, $0 down, plans from $149 a month, and you own it.",
+  "heroHeadline": "Websites that bring in work",
+  "heroText": "GallarDesign designs and builds fast, search-ready websites for small businesses. A real designer leads every site, and AI does the heavy lifting, so you're live in 14 days.",
+  "primaryLabel": "Start a project",
+  "secondaryLabel": "See pricing",
+  "servicesHeading": "What you get",
+  "servicesIntro": "Everything a small business site needs to win customers, without a long contract or a locked-in platform.",
+  "reasonsHeading": "Why owners pick GallarDesign",
   "reasons": [
-    { "title": "Upfront pricing", "text": "You approve the price before any work starts." },
-    { "title": "Same-day visits", "text": "Most repairs are booked and fixed the day you call." },
-    { "title": "Clean worksites", "text": "Floor covers on the way in, everything wiped down on the way out." }
+    { "title": "Designed by a person", "text": "Your site is designed for your business by a real designer, not assembled from a template by a bot." },
+    { "title": "Built at AI speed", "text": "AI handles the repetitive build work, so you're live in 14 days from the day we have your content." },
+    { "title": "Yours to own", "text": "Your content and domain are yours from day one. The site is yours after month 12, or any time by buyout." },
+    { "title": "Changes in two days", "text": "Send a change and it's done within two business days. Post to your blog yourself, any time." }
   ],
-  "faqHeading": "Common questions",
+  "faqHeading": "Questions owners ask",
   "faqs": [
-    { "question": "Do you charge for estimates?", "answer": "No. We give you a written price before we start, and you only pay if you go ahead." },
-    { "question": "Do you handle emergencies?", "answer": "Yes. Call any time for burst pipes, major leaks or no hot water." }
+    { "question": "What does $0 down mean?", "answer": "You pay nothing to start. The plan is a monthly price for 12 months that covers the design, the build, hosting and edits. If you'd rather pay once, every plan has an upfront price." },
+    { "question": "What happens after 12 months?", "answer": "The site is yours. Starter moves to care at $79 a month and Business to $129, which covers hosting, updates and edits. Growth can stay on as a monthly SEO plan. You can also take the site elsewhere." },
+    { "question": "Can I leave before 12 months?", "answer": "Yes. You can buy out the rest of the year at the build part of your plan for each month left: $70 a month on Starter, $170 on Business and $300 on Growth. Within the first 30 days you get a full refund instead." },
+    { "question": "How is it live in 14 days?", "answer": "The clock starts when we have your content: text, photos and logo. If you don't have them, we help you write and gather them. If we miss the 14 days, your first month is free." },
+    { "question": "Will I be able to edit the site?", "answer": "You can write and publish blog posts and change search titles yourself in a simple editor. For anything else, send us the change and it's done within two business days." },
+    { "question": "Do you work with agencies?", "answer": "Yes. Agencies can hire GallarDesign white label, with their name on the work. See the page for agencies." }
   ],
-  "ctaHeading": "Need a plumber today?",
-  "ctaText": "Tell us what's going on and we'll call you back with a time and a price."
+  "ctaHeading": "Tell us about your business",
+  "ctaText": "Send a few lines about what you do and what you need. You'll get a reply within one business day."
 }

@@ -10,9 +10,9 @@ import { settings } from '../../lib/settings';
 const services = await getServices();
 ---
 <Base title="Services" description={`Services from ${settings.name}. ${settings.tagline}`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]}>
-  <Hero headline="Services" text={settings.tagline} />
+  <Hero headline="Services" text="Design, build, local SEO and care. Every plan includes hosting and edits, and you own what we make." />
   <Section>
     <CardGrid cards={services.map((s) => ({ title: s.data.title, text: s.data.summary, href: `/services/${s.id}/` }))} />
   </Section>
-  <CtaBand heading="Not sure what you need?" text="Describe the problem and we'll tell you what it takes to fix it." />
+  <CtaBand heading="Not sure what you need?" text="Tell us about your business and we'll recommend a plan, with no pressure to sign." />
 </Base>

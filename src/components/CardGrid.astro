@@ -3,11 +3,11 @@ interface Card { title: string; text: string; href?: string }
 interface Props { cards: Card[] }
 const { cards } = Astro.props;
 ---
-<ul class="grid gap-6 [grid-template-columns:repeat(auto-fill,minmax(min(100%,16rem),1fr))]">
+<ul class="grid gap-x-8 gap-y-10 [grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
   {cards.map((c) => (
-    <li class="rounded-site border border-line p-6">
-      <h3 class="text-xl font-bold">{c.href ? <a href={c.href} class="text-ink">{c.title}</a> : c.title}</h3>
-      <p class="mt-2 text-muted">{c.text}</p>
+    <li>
+      <h3 class="text-2xl">{c.href ? <a href={c.href} class="no-underline hover:underline">{c.title}</a> : c.title}</h3>
+      <p class="mt-3 text-ink-2">{c.text}</p>
     </li>
   ))}
 </ul>

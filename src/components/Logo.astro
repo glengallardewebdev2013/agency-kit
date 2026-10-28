@@ -1,0 +1,32 @@
+---
+// The GallarDesign wordmark: a red square two lines tall beside "Gallar" in
+// the display face at 700 and "Design" at 400. Outlined SVG files are in brand/.
+interface Props { size?: string; class?: string }
+const { size = '1.125rem', class: className } = Astro.props;
+---
+<span class:list={['wordmark', className]} style={`font-size:${size}`}>
+  <span class="wordmark-square" aria-hidden="true"></span>
+  <span class="wordmark-a">Gallar</span>
+  <span class="wordmark-b">Design</span>
+</span>
+
+<style>
+  .wordmark {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.32em;
+    align-items: start;
+    font-family: var(--font-display);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: inherit;
+  }
+  .wordmark-square {
+    grid-row: span 2;
+    width: 1.84em;
+    height: 1.84em;
+    background: var(--color-mark);
+  }
+  .wordmark-a { font-weight: 700; }
+  .wordmark-b { font-weight: 400; }
+</style>

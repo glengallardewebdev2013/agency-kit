@@ -1,10 +1,12 @@
 {
-  "title": "About us",
-  "description": "A local Portland plumbing company focused on honest prices and tidy, lasting repairs.",
-  "heading": "A local plumbing company that shows up",
-  "intro": "We're a small team of licensed plumbers working across Portland.",
+  "title": "About GallarDesign",
+  "description": "GallarDesign is a one-person web design studio. Every site is designed by a person, and AI makes the build fast.",
+  "heading": "A designer, not a site factory",
+  "intro": "GallarDesign is a one-person studio run by Glen Gallarde. Glen designs every site, talks to every client and answers every change request.",
   "paragraphs": [
-    "We started with one van and a simple rule: tell people the price before the work starts, and leave the house cleaner than we found it.",
-    "Today we handle everything from dripping taps to full repipes, for homeowners and small businesses."
+    "Small businesses are being offered two kinds of website. One is cheap and assembled by a bot in minutes. The other is designed properly but costs thousands upfront and takes months. GallarDesign sits in between: a real designer leads every site, and AI handles the repetitive build work, so the site is live in 14 days and priced like a monthly bill.",
+    "You deal with one person from the first call to launch and after. There's no account manager in the middle, so changes are done within two business days.",
+    "The terms are written to be fair. You own your content and domain from day one, and the site after the first year. If it isn't working out, there's a full refund in the first 30 days and a clear buyout price after that.",
+    "GallarDesign also works white label for agencies, building sites that go out under the agency's name."
   ]
 }

@@ -1,18 +1,15 @@
 ---
-import { settings } from '../lib/settings';
 interface Props { heading: string; text?: string; label?: string; href?: string }
-const { heading, text, label = 'Get a free quote', href = '/contact/' } = Astro.props;
-const tel = settings.phone.replace(/[^\d+]/g, '');
+const { heading, text, label = 'Start a project', href = '/contact/' } = Astro.props;
 ---
-<section class="py-16">
-  <div class="container-site">
-    <div class="rounded-site bg-accent px-6 py-12 text-accent-ink md:px-12">
-      <h2 class="text-3xl font-bold">{heading}</h2>
-      {text && <p class="mt-3 max-w-2xl">{text}</p>}
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href={href} class="btn bg-accent-ink text-accent">{label}</a>
-        {settings.phone && <a href={`tel:${tel}`} class="btn border border-accent-ink text-accent-ink">Call {settings.phone}</a>}
-      </div>
+<section class="field mt-16 py-16 md:py-24">
+  <div class="container-site grid gap-8 md:grid-cols-12 md:items-end">
+    <div class="md:col-span-8">
+      <h2 class="text-4xl md:text-6xl">{heading}</h2>
+      {text && <p class="mt-4 max-w-2xl text-lg">{text}</p>}
+    </div>
+    <div class="md:col-span-4 md:justify-self-end">
+      <a href={href} class="btn btn-primary">{label}</a>
     </div>
   </div>
 </section>

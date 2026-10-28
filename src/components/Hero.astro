@@ -3,12 +3,12 @@ interface Action { label: string; href: string }
 interface Props { headline: string; text?: string; primary?: Action; secondary?: Action }
 const { headline, text, primary, secondary } = Astro.props;
 ---
-<section class="container-site py-16 md:py-24">
-  <div class="max-w-3xl">
-    <h1 class="text-4xl font-bold md:text-6xl">{headline}</h1>
-    {text && <p class="mt-6 text-lg text-muted md:text-xl">{text}</p>}
+<section class="container-site pt-12 pb-16 md:pt-20 md:pb-24">
+  <div class="max-w-5xl">
+    <h1 class="text-5xl md:text-7xl">{headline}</h1>
+    {text && <p class="mt-6 max-w-2xl text-lg text-ink-2 md:text-xl">{text}</p>}
     {(primary || secondary) && (
-      <div class="mt-8 flex flex-wrap gap-3">
+      <div class="mt-8 flex flex-wrap items-center gap-6">
         {primary && <a class="btn btn-primary" href={primary.href}>{primary.label}</a>}
         {secondary && <a class="btn btn-secondary" href={secondary.href}>{secondary.label}</a>}
       </div>

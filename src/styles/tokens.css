@@ -1,24 +1,49 @@
 /*
   Design tokens. Every colour and font on the site comes from here, so a
   client's design is applied by editing this one file.
+
+  GallarDesign: Hallmark theme "Grid". White poster stock, blue-black ink,
+  Radio Canada Big over Radio Canada, flat ultramarine fields and one Swiss
+  red mark. Red never sits on the ultramarine, and two fields never touch.
 */
+@font-face {
+  font-family: 'Radio Canada Big';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/radio-canada-big-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Radio Canada';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/radio-canada-latin.woff2') format('woff2');
+}
+
 :root {
-  --color-bg: oklch(98.5% 0.004 90);
-  --color-surface: oklch(95.5% 0.008 90);
-  --color-ink: oklch(22% 0.02 250);
-  --color-muted: oklch(45% 0.02 250);
-  --color-line: oklch(87% 0.01 250);
-  --color-accent: oklch(48% 0.13 245);
-  --color-accent-ink: oklch(99% 0 0);
-  --color-accent-strong: oklch(40% 0.13 245);
-  --color-focus: oklch(62% 0.19 60);
-  --color-danger: oklch(48% 0.18 27);
+  --color-bg: oklch(97.5% 0.005 90);
+  --color-surface: oklch(94.2% 0.006 90);
+  --color-ink: oklch(19% 0.022 266);
+  --color-ink-2: oklch(31% 0.02 266);
+  --color-muted: oklch(47% 0.016 266);
+  --color-line: oklch(87.5% 0.008 90);
+  --color-accent: oklch(44% 0.2 266);
+  --color-accent-ink: oklch(97.5% 0.005 90);
+  --color-accent-strong: oklch(36% 0.18 266);
+  --color-field: oklch(44% 0.2 266);
+  --color-field-ink: oklch(97.5% 0.005 90);
+  --color-mark: oklch(57% 0.215 29);
+  --color-mark-ink: oklch(97.5% 0.005 90);
+  --color-focus: oklch(46% 0.2 266);
+  --color-danger: oklch(50% 0.2 29);
   --color-success: oklch(45% 0.12 150);
 
-  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-body);
+  --font-body: 'Radio Canada', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-display: 'Radio Canada Big', 'Radio Canada', ui-sans-serif, system-ui, Arial, sans-serif;
+  --tracking-display: -0.035em;
 
-  --radius: 0.5rem;
-  --measure: 68ch;
-  --container: 72rem;
+  --radius: 0;
+  --measure: 66ch;
+  --container: 80rem;
 }

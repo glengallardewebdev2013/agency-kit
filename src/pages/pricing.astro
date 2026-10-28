@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Plans from '../components/Plans.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqSchema } from '../lib/schema';
+import { foundingSpots, money, plans } from '../lib/pricing';
+
+const faqs = [
+  { question: 'Why 12 months?', answer: 'The first year pays for the design and the build, which is why there is nothing to pay upfront. After month 12 the site is yours and the price drops to care.' },
+  { question: 'Can I pay upfront instead?', answer: `Yes. Starter is ${money(plans[0].upfront)}, Business ${money(plans[1].upfront)} and Growth ${money(plans[2].upfront)}, paid once. The first year of hosting and edits is included.` },
+  { question: 'What if I want to leave early?', answer: 'Within the first 30 days you get a full refund. After that, you can buy out the months left at the build part of your plan, and the site is yours.' },
+  { question: 'What counts as an edit?', answer: 'Anything you would ask a designer to change: text, photos, a new section or page within your plan, a new form. Your monthly hours roll into one request queue, and each change is done within two business days.' },
+  { question: 'Is there anything else to pay?', answer: 'Your domain name, usually about $10 to $20 a year, registered in your name. Hosting, SSL, forms and backups are included.' },
+];
+---
+<Base title="Pricing" description="Website plans from $149 a month, $0 down, or paid once from $1,500. Live in 14 days, 30-day money back, and you own the site." schema={[faqSchema(faqs)]} crumbs={[{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/pricing/' }]}>
+  <Hero headline="$0 down. Plain prices." text="One monthly price for 12 months covers the design, the build, hosting and edits. Or pay once upfront. Either way, you own your content and domain from day one." />
+
+  <Section heading="Plans" intro="Every plan includes the design, the build, hosting, SSL and monthly edits.">
+    <Plans detail />
+  </Section>
+
+  <section class="field--mark py-16 md:py-24">
+    <div class="container-site grid gap-10 md:grid-cols-12 md:items-end">
+      <p class="figure text-[clamp(8rem,22vw,18rem)] md:col-span-4">{foundingSpots}</p>
+      <div class="md:col-span-8">
+        <h2 class="text-4xl md:text-6xl">Founding offer: your price for life</h2>
+        <p class="mt-4 max-w-2xl text-lg">The first {foundingSpots} businesses keep their monthly price for as long as they stay, including care after year one. In return, we ask for a testimonial and a short case study.</p>
+        <a href="/contact/" class="btn btn-primary mt-8">Claim a founding spot</a>
+      </div>
+    </div>
+  </section>
+
+  <Section heading="The guarantee">
+    <dl class="grid gap-x-8 gap-y-10 md:grid-cols-3">
+      <div><dt class="text-2xl font-bold [font-family:var(--font-display)] tracking-tight">Live in 14 days</dt><dd class="mt-3 text-ink-2">Your site is live 14 days after we have your content, or your first month is free.</dd></div>
+      <div><dt class="text-2xl font-bold [font-family:var(--font-display)] tracking-tight">30-day money back</dt><dd class="mt-3 text-ink-2">Not happy within 30 days of signing up? You get a full refund.</dd></div>
+      <div><dt class="text-2xl font-bold [font-family:var(--font-display)] tracking-tight">You own it</dt><dd class="mt-3 text-ink-2">Content and domain from day one. The site after month 12, or any time by buyout.</dd></div>
+    </dl>
+  </Section>
+
+  <Section heading="After the first year and early buyout" tone="surface">
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[36rem] text-left">
+        <thead>
+          <tr class="border-b border-line">
+            <th class="label py-3 pr-6 font-medium">Plan</th>
+            <th class="label py-3 pr-6 font-medium">Monthly, 12 months</th>
+            <th class="label py-3 pr-6 font-medium">Or upfront</th>
+            <th class="label py-3 pr-6 font-medium">From month 13</th>
+            <th class="label py-3 font-medium">Buyout per month left</th>
+          </tr>
+        </thead>
+        <tbody>
+          {plans.map((p) => (
+            <tr class="border-b border-line">
+              <th scope="row" class="py-4 pr-6 text-xl [font-family:var(--font-display)]">{p.name}</th>
+              <td class="py-4 pr-6 tabular-nums">{money(p.monthly)}</td>
+              <td class="py-4 pr-6 tabular-nums">{money(p.upfront)}</td>
+              <td class="py-4 pr-6">{p.care}</td>
+              <td class="py-4 tabular-nums">{money(p.buyout)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section heading="Pricing questions">
+    <Faq items={faqs} />
+  </Section>
+
+  <CtaBand heading="Pick a plan on a call" text="Not sure which plan fits? Tell us what you need and we'll recommend one, with no pressure to sign." />
+</Base>

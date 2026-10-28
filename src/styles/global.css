@@ -12,6 +12,11 @@
   --color-accent-strong: var(--color-accent-strong);
   --color-danger: var(--color-danger);
   --color-success: var(--color-success);
+  --color-ink-2: var(--color-ink-2);
+  --color-field: var(--color-field);
+  --color-field-ink: var(--color-field-ink);
+  --color-mark: var(--color-mark);
+  --color-mark-ink: var(--color-mark-ink);
   --font-body: var(--font-body);
   --font-display: var(--font-display);
   --radius-site: var(--radius);
@@ -24,20 +29,22 @@
   }
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
   }
   body {
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-body);
-    line-height: 1.6;
+    font-size: 1.0625rem;
+    line-height: 1.5;
     text-rendering: optimizeLegibility;
   }
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
-    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
     text-wrap: balance;
     overflow-wrap: break-word;
     min-width: 0;
@@ -47,8 +54,17 @@
     overflow-wrap: break-word;
   }
   a {
-    color: var(--color-accent);
-    text-underline-offset: 0.2em;
+    color: currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.28em;
+    transition: color 150ms ease-out;
+  }
+  a:hover {
+    color: var(--color-mark);
+  }
+  ::selection {
+    background: var(--color-mark);
+    color: var(--color-mark-ink);
   }
   :focus-visible {
     outline: 3px solid var(--color-focus);
@@ -60,9 +76,6 @@
     height: auto;
   }
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
     *,
     *::before,
     *::after {
@@ -89,27 +102,79 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 2.75rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: var(--radius);
-    font-weight: 600;
+    min-height: 3.25rem;
+    padding: 0.625rem 1.5rem;
+    border: 0;
+    border-radius: 0;
+    font-weight: 500;
     text-decoration: none;
-    transition: background-color 150ms ease, color 150ms ease;
+    transition: background-color 150ms ease-out, color 150ms ease-out;
   }
   .btn-primary {
-    background: var(--color-accent);
-    color: var(--color-accent-ink);
+    background: var(--color-ink);
+    color: var(--color-bg);
   }
   .btn-primary:hover {
-    background: var(--color-accent-strong);
+    background: var(--color-ink-2);
+    color: var(--color-bg);
   }
+  /* Secondary actions are text with an underline that turns red on hover. */
   .btn-secondary {
-    border: 1px solid var(--color-line);
-    color: var(--color-ink);
-    background: transparent;
+    padding-inline: 0;
+    min-height: 3.25rem;
+    background: none;
+    color: currentColor;
+    text-decoration: underline 1px;
+    text-underline-offset: 0.32em;
   }
   .btn-secondary:hover {
-    background: var(--color-surface);
+    color: var(--color-mark);
+  }
+  .field {
+    background: var(--color-field);
+    color: var(--color-field-ink);
+    --color-focus: var(--color-field-ink);
+  }
+  .field a:hover,
+  .field .btn-secondary:hover {
+    color: var(--color-field-ink);
+    text-decoration-thickness: 2px;
+  }
+  .field .btn-primary,
+  .field--mark .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-bg);
+  }
+  .field--mark {
+    background: var(--color-mark);
+    color: var(--color-mark-ink);
+    --color-focus: var(--color-ink);
+  }
+  .field--mark a:hover {
+    color: var(--color-mark-ink);
+    text-decoration-thickness: 2px;
+  }
+  .poster {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 9rem);
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+  }
+  .figure {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+  .label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+  .field .label,
+  .field--mark .label {
+    color: inherit;
   }
   .prose-site {
     max-width: var(--measure);
@@ -118,14 +183,15 @@
     margin-top: 1em;
   }
   .prose-site h2 {
-    font-size: 1.5rem;
-    margin-top: 2em;
-    font-weight: 700;
+    font-size: 2rem;
+    margin-top: 1.6em;
   }
   .prose-site h3 {
-    font-size: 1.2rem;
-    margin-top: 1.5em;
-    font-weight: 700;
+    font-size: 1.35rem;
+    margin-top: 1.4em;
+  }
+  .prose-site a {
+    text-decoration: underline 1px;
   }
   .prose-site ul {
     list-style: disc;
