@@ -14,7 +14,7 @@ describe('keystatic schema', () => {
   });
 
   it('reads every collection entry', async () => {
-    for (const key of ['services', 'locations', 'posts', 'landing'] as const) {
+    for (const key of ['services', 'industries', 'posts', 'landing'] as const) {
       const entries = await reader.collections[key].all();
       expect(entries.length, key).toBeGreaterThan(0);
     }

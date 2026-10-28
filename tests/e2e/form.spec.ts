@@ -9,7 +9,7 @@ test.describe('lead form', () => {
     const form = page.locator('form.lead-form');
     await form.getByLabel('Name').fill('Dana');
     await form.getByLabel('Email').fill('dana@example.com');
-    await form.getByLabel('How can we help?').fill('Leaky tap');
+    await form.getByLabel('Your business and what you need').fill('Leaky tap');
     return form;
   }
 
@@ -34,7 +34,7 @@ test.describe('lead form', () => {
     await form.getByRole('button', { name: 'Send request' }).click();
     const status = form.getByRole('status');
     await expect(status).toContainText('We could not send your message.');
-    await expect(status.getByRole('link').first()).toHaveAttribute('href', /^tel:/);
+    await expect(status.getByRole('link').first()).toHaveAttribute('href', /^(tel|mailto):/);
     const events = await page.evaluate(() => (window as unknown as { dataLayer: { event?: string }[] }).dataLayer);
     expect(events.some((e) => e.event === 'generate_lead')).toBe(false);
   });

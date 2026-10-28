@@ -1,33 +1,84 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
-import CardGrid from '../components/CardGrid.astro';
+import IndustryCards from '../components/IndustryCards.astro';
+import Plans from '../components/Plans.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Fan from '../components/Fan.astro';
+import Steps from '../components/Steps.astro';
+import Work from '../components/Work.astro';
+import Founding from '../components/Founding.astro';
 import home from '../content/singletons/home.json';
-import { getServices } from '../lib/content';
 import { faqSchema } from '../lib/schema';
+import { foundingSpots } from '../lib/pricing';
 
-const services = await getServices();
+const owns = [
+  { title: 'Your content and domain', text: 'Yours from day one. The domain is registered in your name.' },
+  { title: 'Your site after month 12', text: 'After the first year the site is yours to keep, move or hand to anyone else.' },
+  { title: '30-day money back', text: 'Not happy in the first 30 days? You get a full refund.' },
+];
 ---
 <Base title={home.title} description={home.description} schema={[faqSchema(home.faqs)]}>
-  <Hero
-    headline={home.heroHeadline}
-    text={home.heroText}
-    primary={{ label: home.primaryLabel, href: '/contact/' }}
-    secondary={{ label: home.secondaryLabel, href: '/services/' }}
-  />
-  <Section heading={home.servicesHeading} intro={home.servicesIntro} tone="surface">
-    <CardGrid cards={services.map((s) => ({ title: s.data.title, text: s.data.summary, href: `/services/${s.id}/` }))} />
+  <section class="hero relative isolate overflow-x-clip">
+    <div class="guides" aria-hidden="true"></div>
+    <div class="container-site rise flex flex-col items-center pt-16 text-center md:pt-24">
+      <p class="chip mb-7"><span class="chip-dot" aria-hidden="true"></span>Taking {foundingSpots} founding clients</p>
+      <h1 class="max-w-[15ch] text-[length:min(var(--text-h1),10vh+0.5rem)] [font-variation-settings:'opsz'_72]">{home.heroHeadline}</h1>
+      <p class="mt-6 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.35vw,1.25rem)] text-muted">{home.heroText}</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a class="btn btn-primary" href="/contact/">{home.primaryLabel}</a>
+        <a class="btn btn-secondary" href="/pricing/">{home.secondaryLabel}</a>
+      </div>
+      <p class="mt-4 text-[0.8125rem] text-muted">$0 down · from $149 a month · live in 14 days · you own it</p>
+    </div>
+    <Fan />
+  </section>
+
+  <Section heading="Live in 14 days" intro="The clock starts the day we have your content. Miss it, and your first month is free.">
+    <Steps />
   </Section>
+
+  <Section heading="One designer, every kind of business" intro="Each site is designed for the business it sells, not poured into a template. Hover the hand above, or look closer here.">
+    <Work />
+  </Section>
+
   <Section heading={home.reasonsHeading}>
-    <CardGrid cards={home.reasons} />
+    <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      {home.reasons.map((r) => (
+        <li class="border-t border-line pt-5">
+          <h3 class="text-[1.0625rem]">{r.title}</h3>
+          <p class="mt-2 text-[0.9375rem] text-muted">{r.text}</p>
+        </li>
+      ))}
+    </ul>
   </Section>
-  {home.faqs.length > 0 && (
-    <Section heading={home.faqHeading}>
-      <Faq items={home.faqs} />
-    </Section>
-  )}
+
+  <Section heading="Plans" intro="One price a month for 12 months, $0 down. Or pay once upfront. Hosting, SSL and edits are included.">
+    <Plans />
+    <p class="mt-8"><a href="/pricing/" class="btn btn-secondary">Full pricing, care and buyout terms</a></p>
+  </Section>
+
+  <Founding />
+
+  <Section heading="Built for your kind of business" intro="We start with two kinds of business where a well-designed site wins customers fast.">
+    <IndustryCards />
+  </Section>
+
+  <Section heading="You own it. No traps.">
+    <dl class="grid gap-5 md:grid-cols-3">
+      {owns.map((o) => (
+        <div class="tile p-6">
+          <dt class="text-[1.375rem] [font-family:var(--font-display)] tracking-[-0.02em]">{o.title}</dt>
+          <dd class="mt-2 text-[0.9375rem] text-muted">{o.text}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+
+  <Section heading={home.faqHeading} layout="split">
+    <Faq items={home.faqs} />
+  </Section>
+
   <CtaBand heading={home.ctaHeading} text={home.ctaText} />
 </Base>

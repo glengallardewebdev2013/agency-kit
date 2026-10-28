@@ -1,41 +1,35 @@
 ---
+import Logo from './Logo.astro';
 import { settings } from '../lib/settings';
 import { nav } from '../lib/nav';
-const a = settings.address;
-const hasAddress = Boolean(a.street || a.city);
-const tel = settings.phone.replace(/[^\d+]/g, '');
 const year = new Date().getFullYear();
 ---
-<footer class="mt-24 border-t border-line bg-surface">
-  <div class="container-site grid gap-10 py-12 md:grid-cols-3">
-    <div>
-      <p class="text-lg font-bold">{settings.name}</p>
-      {settings.tagline && <p class="mt-2 text-muted">{settings.tagline}</p>}
+<footer class="field">
+  <div class="container-site pt-24">
+    <div class="grid gap-12 border-t border-line pt-24 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <Logo size="clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)" />
+        {settings.tagline && <p class="mt-5 max-w-sm text-[1.0625rem] text-muted">{settings.tagline}</p>}
+      </div>
+      <div class="md:col-span-3 md:col-start-7">
+        <p class="label">Contact</p>
+        <ul class="mt-3 space-y-1">
+          {settings.email && <li><a href={`mailto:${settings.email}`} class="hover:text-accent">{settings.email}</a></li>}
+          {settings.phone && <li><a href={`tel:${settings.phone.replace(/[^\d+]/g, '')}`} class="hover:text-accent">{settings.phone}</a></li>}
+          {settings.hours && <li>{settings.hours}</li>}
+        </ul>
+      </div>
+      <nav aria-label="Footer" class="md:col-span-3">
+        <p class="label">Pages</p>
+        <ul class="mt-3 grid grid-cols-2 gap-x-6 gap-y-1">
+          {nav.map((item) => <li><a href={item.href} class="no-underline hover:text-accent">{item.label}</a></li>)}
+          <li><a href="/contact/" class="no-underline hover:text-accent">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <div>
-      <p class="font-semibold">Contact</p>
-      <ul class="mt-2 space-y-1 text-muted">
-        {settings.phone && <li><a href={`tel:${tel}`}>{settings.phone}</a></li>}
-        {settings.email && <li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>}
-        {hasAddress && (
-          <li>
-            <address class="not-italic">
-              {a.street && <>{a.street}<br /></>}
-              {[a.city, a.region].filter(Boolean).join(', ')} {a.postalCode}
-            </address>
-          </li>
-        )}
-        {settings.hours && <li>{settings.hours}</li>}
-      </ul>
+    <div class="flex flex-wrap items-center justify-between gap-4 pt-24 pb-12 text-[0.8125rem] text-muted">
+      <p>Copyright {year} {settings.name}.</p>
+      <p>You own your content and domain from day one.</p>
     </div>
-    <nav aria-label="Footer">
-      <p class="font-semibold">Pages</p>
-      <ul class="mt-2 space-y-1">
-        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-      </ul>
-    </nav>
-  </div>
-  <div class="container-site border-t border-line py-6 text-sm text-muted">
-    <p>Copyright {year} {settings.name}</p>
   </div>
 </footer>

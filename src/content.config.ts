@@ -18,12 +18,17 @@ const services = defineCollection({
   }),
 });
 
-const locations = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/locations' }),
+// The kinds of business GallarDesign sells to. Each gets a page that leads
+// with the outcome and the terms.
+const industries = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/industries' }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    mapQuery: z.string().default(''),
+    headline: z.string(),
+    order: z.number().default(100),
+    points: z.array(z.string()).default([]),
+    faqs: z.array(faq).default([]),
     ...seo,
   }),
 });
@@ -53,4 +58,4 @@ const landing = defineCollection({
   }),
 });
 
-export const collections = { services, locations, posts, landing };
+export const collections = { services, industries, posts, landing };

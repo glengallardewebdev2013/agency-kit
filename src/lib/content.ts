@@ -4,8 +4,8 @@ export async function getServices() {
   return (await getCollection('services')).sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
-export async function getLocations() {
-  return (await getCollection('locations')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+export async function getIndustries() {
+  return (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
 export async function getPosts() {

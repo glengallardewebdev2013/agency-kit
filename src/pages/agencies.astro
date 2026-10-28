@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import CardGrid from '../components/CardGrid.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { faqSchema } from '../lib/schema';
+import { money, wholesale } from '../lib/pricing';
+
+const faqs = [
+  { question: 'Will my client ever see GallarDesign?', answer: 'No. The site, the handover pack and every email your client sees carry your brand. Nothing in the built site names GallarDesign.' },
+  { question: 'Do you contact my clients?', answer: "Only if you ask us to, and always as part of your team. We never pitch your clients, during or after a project." },
+  { question: 'Can my team edit the sites?', answer: 'Yes. Your team writes blog posts and changes SEO fields in the CMS. Design and structure changes come to us and are done within two business days.' },
+  { question: 'How many projects can you take?', answer: 'GallarDesign is one designer, so active builds are capped to keep the 14-day timeline honest. Ask about current availability.' },
+];
+---
+<Base title="White label web design for agencies" description="White label website design and development for SEO and ads agencies. Your brand on the work, fixed wholesale prices, live in 14 days." schema={[faqSchema(faqs)]} crumbs={[{ name: 'Home', path: '/' }, { name: 'For agencies', path: '/agencies/' }]}>
+  <Hero eyebrow="For agencies" headline="Websites under your name" text="GallarDesign builds websites white label for SEO and ads agencies. You sell the site, we design and build it, and your client only ever sees your brand." primary={{ label: 'Send a brief', href: '/contact/' }} secondary={{ label: 'Wholesale prices', href: '#wholesale' }}>
+    <p class="mt-4 text-[0.8125rem] text-muted">Landing pages from {money(wholesale.builds[0].price)} wholesale · your branding · live in 14 days</p>
+  </Hero>
+
+  <Section heading="How it works">
+    <CardGrid cards={[
+      { title: 'You send a brief', text: 'Pages, content, brand and any campaign the site supports. A short call fills the gaps.' },
+      { title: 'We design and build', text: 'A designer leads the layout and the build runs at AI speed. You review on a private link.' },
+      { title: 'You hand it over', text: 'Live 14 days after we have content, with an unbranded handover pack your client can use.' },
+      { title: 'Ready for your SEO and ads', text: 'Fast pages, clean structure, tracking and lead forms are in place, so your campaigns start on solid ground.' },
+    ]} />
+  </Section>
+
+  <Section id="wholesale" heading="Wholesale prices" intro="Fixed prices per build, or a monthly plan you resell. Set your own retail price." tone="surface">
+    <div class="grid gap-12 md:grid-cols-2">
+      <div>
+        <h3 class="text-[1.0625rem]">Fixed-price builds</h3>
+        <table class="mt-4 w-full text-left">
+          <tbody>
+            {wholesale.builds.map((b) => (
+              <tr class="border-b border-line"><th scope="row" class="py-3 pr-6 font-normal">{b.name}</th><td class="figure py-3 text-right text-3xl">{money(b.price)}</td></tr>
+            ))}
+            <tr><th scope="row" class="py-3 pr-6 font-normal">Care, hosting and edits</th><td class="py-3 text-right">{wholesale.care}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 class="text-[1.0625rem]">Monthly, to resell on your own plans</h3>
+        <table class="mt-4 w-full text-left">
+          <tbody>
+            {wholesale.monthly.map((m) => (
+              <tr class="border-b border-line"><th scope="row" class="py-3 pr-6 font-normal">{m.name}</th><td class="figure py-3 text-right text-3xl">{money(m.price)}<span class="label ml-1 [font-family:var(--font-body)] tracking-normal">/mo</span></td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </Section>
+
+  <Section heading="The rules we work by">
+    <CardGrid cards={[
+      { title: 'Your brand only', text: 'No GallarDesign credit on the site, in the code or in the handover.' },
+      { title: 'No poaching', text: 'Your clients are yours. We never approach them, during a project or after.' },
+      { title: 'NDA on request', text: 'Happy to sign yours before you share client details.' },
+    ]} />
+  </Section>
+
+  <Section heading="Agency questions" layout="split">
+    <Faq items={faqs} />
+  </Section>
+
+  <CtaBand heading="Send your next brief" label="Send a brief" text="Tell us about the project and the deadline. You'll get a fixed price within one business day." />
+</Base>

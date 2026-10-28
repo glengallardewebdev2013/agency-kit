@@ -25,7 +25,7 @@ try {
   const next = applySiteAnswers(current, answers);
   await writeFile(SETTINGS, `${JSON.stringify(next, null, 2)}\n`);
   console.log(`\nSaved settings for ${next.name}.`);
-  console.log('Next: replace the demo content in src/content (pages, services, locations, posts) and run `npm run dev` to check it.');
+  console.log('Next: replace the demo content in src/content (pages, services, industries, posts) and run `npm run dev` to check it.');
 } catch (err) {
   console.error(`\n${err instanceof Error ? err.message : err}`);
   process.exitCode = 1;

@@ -4,7 +4,7 @@ import { builtPages } from './pages';
 const pages = builtPages();
 
 test('the build produced the core templates', () => {
-  for (const path of ['/', '/services/', '/locations/', '/about/', '/contact/', '/blog/', '/thanks/', '/form-error/']) {
+  for (const path of ['/', '/services/', '/industries/', '/pricing/', '/agencies/', '/about/', '/contact/', '/blog/', '/thanks/', '/form-error/']) {
     expect(pages).toContain(path);
   }
 });
@@ -39,7 +39,7 @@ test('unknown URLs get the 404 page', async ({ page }) => {
 
 test('main navigation reaches every section', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  for (const label of ['Services', 'Areas', 'About', 'Blog', 'Contact']) {
+  for (const label of ['Services', 'Industries', 'Pricing', 'For agencies', 'About', 'Blog']) {
     await page.goto('/');
     await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: label }).click();
     await expect(page.locator('h1')).toBeVisible();
@@ -51,22 +51,23 @@ test('mobile menu opens and links work', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('/');
   await page.getByText('Menu').click();
-  await page.getByRole('navigation', { name: 'Mobile' }).getByRole('link', { name: 'Contact' }).click();
-  await expect(page).toHaveURL(/\/contact\/$/);
+  await page.getByRole('navigation', { name: 'Mobile' }).getByRole('link', { name: 'Pricing' }).click();
+  await expect(page).toHaveURL(/\/pricing\/$/);
 });
 
 test('landing pages hide the main nav, keep one action and stay out of search', async ({ page }) => {
-  await page.goto('/lp/free-quote/');
+  await page.goto('/lp/start/');
   await expect(page.getByRole('navigation', { name: 'Main' })).toHaveCount(0);
   await expect(page.locator('form.lead-form')).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
 });
 
-test('pages never credit the kit or its maker', async ({ page }) => {
+// This is GallarDesign's own site, so its name is expected; the kit's is not.
+test('pages never credit the kit', async ({ page }) => {
   for (const path of pages) {
     await page.goto(path);
     const html = await page.content();
-    expect(html).not.toMatch(/gallardesign|agency-kit|name="generator"/i);
+    expect(html).not.toMatch(/agency-kit|name="generator"/i);
   }
 });
 

@@ -21,7 +21,7 @@ const changes = `# Updating ${settings.name}
 Open ${settings.url}/keystatic and sign in.
 
 - **Blog posts:** add, edit or unpublish posts (tick Draft to hide one).
-- **SEO fields:** every service, location and post has an optional SEO title
+- **SEO fields:** every service, industry and post has an optional SEO title
   and SEO description that override what shows in search results.
 - **Tracking:** Site settings > Tracking holds the Tag Manager, Analytics,
   Meta Pixel and Google Ads IDs.

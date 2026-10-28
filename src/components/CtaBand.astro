@@ -1,18 +1,30 @@
 ---
-import { settings } from '../lib/settings';
+// The closing call to action. It sits on ink and joins the footer below it.
 interface Props { heading: string; text?: string; label?: string; href?: string }
-const { heading, text, label = 'Get a free quote', href = '/contact/' } = Astro.props;
-const tel = settings.phone.replace(/[^\d+]/g, '');
+const { heading, text, label = 'Start a project', href = '/contact/' } = Astro.props;
 ---
-<section class="py-16">
-  <div class="container-site">
-    <div class="rounded-site bg-accent px-6 py-12 text-accent-ink md:px-12">
-      <h2 class="text-3xl font-bold">{heading}</h2>
-      {text && <p class="mt-3 max-w-2xl">{text}</p>}
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href={href} class="btn bg-accent-ink text-accent">{label}</a>
-        {settings.phone && <a href={`tel:${tel}`} class="btn border border-accent-ink text-accent-ink">Call {settings.phone}</a>}
-      </div>
-    </div>
+<section class="cta field relative isolate overflow-clip">
+  <div class="cta-glow" aria-hidden="true"></div>
+  <div class="container-site flex flex-col items-center pt-28 text-center md:pt-36">
+    <h2 class="max-w-[18ch] text-[length:var(--text-h2)]">{heading}</h2>
+    {text && <p class="mt-5 max-w-xl text-[1.0625rem] text-muted">{text}</p>}
+    <a href={href} class="btn btn-primary mt-8">{label}</a>
   </div>
 </section>
+
+<style>
+  .cta {
+    margin-top: var(--section-gap);
+  }
+  .cta-glow {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 0;
+    width: min(1400px, 120vw);
+    height: 100%;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgb(252 76 2 / 0.16), transparent);
+    pointer-events: none;
+  }
+</style>
