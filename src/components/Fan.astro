@@ -8,14 +8,14 @@ const phones = [concepts[3], concepts[0], concepts[1]];
 <div class="fan" aria-label="Concept sites, made to show the style" role="group">
   <div class="fan-hand">
     {desks.map((c, i) => (
-      <figure class="fan-card fan-card--desk" style={`--i:${i}`} tabindex="0">
-        <img src={`/work/${c.slug}.webp`} srcset={`/work/${c.slug}-600.webp 600w, /work/${c.slug}.webp 1200w`} sizes="(max-width: 560px) 210px, (max-width: 820px) 40vw, 520px" width="1200" height="750" alt={c.alt} fetchpriority={i < 2 ? 'high' : undefined} />
+      <figure class:list={['fan-card fan-card--desk', { 'fan-card--outer': i === 0 || i === 3 }]} style={`--i:${i}`} tabindex="0">
+        <img src={`/work/${c.slug}.webp`} srcset={`/work/${c.slug}-600.webp 600w, /work/${c.slug}.webp 1200w`} sizes="(max-width: 560px) 210px, (max-width: 820px) 40vw, 520px" width="1200" height="750" alt={c.alt} loading={i === 0 || i === 3 ? 'lazy' : undefined} fetchpriority={i === 1 || i === 2 ? 'high' : undefined} />
         <figcaption class="fan-name">{c.name} · {c.kind}</figcaption>
       </figure>
     ))}
     {phones.map((c, i) => (
-      <figure class="fan-card fan-card--phone" style={`--i:${i}`} aria-hidden="true">
-        <img src={`/work/${c.slug}-phone-180.webp`} width="180" height="390" alt="" decoding="async" />
+      <figure class:list={['fan-card fan-card--phone', { 'fan-card--outer': i !== 1 }]} style={`--i:${i}`} aria-hidden="true">
+        <img src={`/work/${c.slug}-phone-180.webp`} width="180" height="390" alt="" decoding="async" loading={i !== 1 ? 'lazy' : undefined} />
       </figure>
     ))}
   </div>
@@ -138,6 +138,11 @@ const phones = [concepts[3], concepts[0], concepts[1]];
     }
     .fan-card {
       top: 1.25rem;
+    }
+    /* A phone shows the middle of the hand only. The outer cards are lazy, so
+       hiding them also means they are never downloaded. */
+    .fan-card--outer {
+      display: none;
     }
   }
 </style>
