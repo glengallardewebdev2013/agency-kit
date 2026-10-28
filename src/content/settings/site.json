@@ -1,18 +1,18 @@
 {
   "name": "GallarDesign",
-  "tagline": "Human-designed websites, built at AI speed.",
+  "tagline": "See your website first. Pay only if you love it.",
   "url": "https://gallardesign.com",
-  "locale": "en-US",
+  "locale": "en-PH",
   "phone": "",
   "email": "hello@gallardesign.com",
   "address": {
     "street": "",
-    "city": "",
-    "region": "",
+    "city": "Cebu City",
+    "region": "Cebu",
     "postalCode": "",
-    "country": "US"
+    "country": "PH"
   },
-  "hours": "Replies within one business day",
+  "hours": "Replies within one working day",
   "businessType": "ProfessionalService",
   "social": [],
   "tracking": {
@@ -22,6 +22,6 @@
     "googleAdsId": "",
     "googleAdsLeadLabel": ""
   },
-  "formSuccessMessage": "Thanks, your message is in. You'll get a reply within one business day.",
+  "formSuccessMessage": "Thanks, your message is in. You'll get a reply within one working day.",
   "demo": false
 }

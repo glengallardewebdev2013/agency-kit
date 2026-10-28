@@ -1,0 +1,31 @@
+---
+import { liveDays, previewDays } from '../lib/pricing';
+const steps = [
+  { title: 'A short call or form', text: 'We check the fit: a real, operating business (DTI or SEC registration, mayor\'s permit, or an active Facebook page with reviews), the owner on the call, and a budget that fits a package.' },
+  { title: 'You send your content', text: 'Your logo, 5 to 10 real photos and your list of services. We start the day we have them.' },
+  { title: `Your preview in ${previewDays} working days`, text: 'A real, working website on a private GallarDesign address, marked "Preview" and hidden from Google.' },
+  { title: 'You decide within 7 days', text: `Love it? Pay once and it goes live on your domain within ${liveDays} working days, with every file and login handed over. Not for you? You owe nothing.` },
+];
+const rules = [
+  'We take up to 4 free previews a month, and one per business.',
+  'The preview stays on our server, with no files, code or domain changes until payment.',
+  'It comes down on day 14 if you decide not to go ahead.',
+  'We own the design until you pay in full. Then everything is yours, in writing, in English and Cebuano.',
+  'Payments, booking tools and translations are built after payment. The preview shows the design.',
+];
+---
+<ol class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+  {steps.map((s, i) => (
+    <li class="tile p-6">
+      <span class="figure text-[2.5rem] text-accent" aria-hidden="true">{i + 1}</span>
+      <h3 class="mt-4 text-[1.0625rem]">{s.title}</h3>
+      <p class="mt-2 text-[0.9375rem] text-muted">{s.text}</p>
+    </li>
+  ))}
+</ol>
+<div class="mt-10 grid gap-x-6 gap-y-4 md:grid-cols-12">
+  <h3 class="text-[1.0625rem] md:col-span-4">The fair-use rules</h3>
+  <ul class="space-y-2 text-[0.9375rem] text-muted md:col-span-8">
+    {rules.map((r) => <li class="flex gap-3"><span aria-hidden="true" class="text-accent">/</span><span>{r}</span></li>)}
+  </ul>
+</div>

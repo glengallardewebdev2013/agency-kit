@@ -1,7 +1,5 @@
 ---
-import { featuredPlan, money, plans } from '../lib/pricing';
-interface Props { detail?: boolean }
-const { detail = false } = Astro.props;
+import { featuredPlan, peso, plans, previewDays } from '../lib/pricing';
 ---
 <div class="grid items-stretch gap-5 md:grid-cols-3">
   {plans.map((p) => {
@@ -10,11 +8,11 @@ const { detail = false } = Astro.props;
       <article class:list={['flex flex-col gap-6 rounded-site p-6 md:p-8', featured ? 'field shadow-[var(--shadow-card)]' : 'tile']} aria-labelledby={`plan-${p.name}`}>
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h3 id={`plan-${p.name}`} class="text-[1.0625rem]">{p.name}</h3>
-          {featured && <span class="chip !bg-field-ink !text-ink !shadow-none"><span class="chip-dot" aria-hidden="true"></span>Best for most businesses</span>}
+          {featured && <span class="chip !bg-field-ink !text-ink !shadow-none"><span class="chip-dot" aria-hidden="true"></span>Most clients pick this</span>}
         </div>
         <p>
-          <span class="figure block text-[clamp(3.5rem,3rem+2vw,4.75rem)]">{money(p.monthly)}</span>
-          <span class="label mt-3 block">a month for 12 months, $0 down</span>
+          <span class="figure block text-[clamp(3.25rem,2.6rem+2vw,4.5rem)]">{peso(p.price)}</span>
+          <span class="label mt-3 block">once, only if you love the preview</span>
         </p>
         <p class="text-[0.9375rem] text-muted">{p.summary}</p>
         <ul class="space-y-2 border-t border-line pt-6 text-[0.9375rem]">
@@ -25,15 +23,10 @@ const { detail = false } = Astro.props;
             </li>
           ))}
         </ul>
-        {detail && (
-          <dl class="mt-auto grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 border-t border-line pt-6 text-[0.9375rem]">
-            <dt class="label self-center">Or upfront</dt><dd>{money(p.upfront)} once</dd>
-            <dt class="label self-center">From month 13</dt><dd>{p.care}</dd>
-            <dt class="label self-center">Early buyout</dt><dd>{money(p.buyout)} per month left</dd>
-          </dl>
-        )}
-        <a href="/contact/" class:list={['btn mt-auto', featured ? 'btn-primary' : 'btn-secondary', detail && '!mt-0']}>Start on {p.name}</a>
+        <p class="label mt-auto">Best for: {p.bestFor}</p>
+        <a href="/contact/" class:list={['btn', featured ? 'btn-primary' : 'btn-secondary']}>Get a free {p.name} preview</a>
       </article>
     );
   })}
 </div>
+<p class="mt-6 text-[0.9375rem] text-muted">Free preview in {previewDays} working days. Pay in full by GCash, Maya, bank transfer or card. Care is optional.</p>

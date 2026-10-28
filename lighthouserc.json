@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist/client",
-      "url": ["/", "/pricing/", "/industries/med-spas/", "/agencies/", "/contact/", "/blog/what-a-0-down-website-plan-should-include/", "/lp/start/"],
+      "url": ["/", "/pricing/", "/industries/dental-and-aesthetic-clinics/", "/agencies/", "/contact/", "/blog/how-much-does-a-website-cost-in-cebu/", "/lp/start/"],
       "numberOfRuns": 1,
       "settings": { "chromeFlags": "--no-sandbox --headless=new" }
     },

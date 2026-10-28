@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { settings } from '../lib/settings';
-import { nav } from '../lib/nav';
+import { footerNav, nav } from '../lib/nav';
 const year = new Date().getFullYear();
 ---
 <footer class="field">
@@ -23,7 +23,7 @@ const year = new Date().getFullYear();
         <p class="label">Pages</p>
         <ul class="mt-3 grid grid-cols-2 gap-x-6 gap-y-1">
           {nav.map((item) => <li><a href={item.href} class="no-underline hover:text-accent">{item.label}</a></li>)}
-          <li><a href="/contact/" class="no-underline hover:text-accent">Contact</a></li>
+          {footerNav.map((item) => <li><a href={item.href} class="no-underline hover:text-accent">{item.label}</a></li>)}
         </ul>
       </nav>
     </div>

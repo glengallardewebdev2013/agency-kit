@@ -3,67 +3,61 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import Plans from '../components/Plans.astro';
+import Care from '../components/Care.astro';
+import LowBudget from '../components/LowBudget.astro';
+import PreviewRules from '../components/PreviewRules.astro';
+import Pledge from '../components/Pledge.astro';
+import Founding from '../components/Founding.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import Founding from '../components/Founding.astro';
 import { faqSchema } from '../lib/schema';
-import { foundingSpots, money, plans } from '../lib/pricing';
+import { peso, plans } from '../lib/pricing';
 
 const faqs = [
-  { question: 'Why 12 months?', answer: 'The first year pays for the design and the build, which is why there is nothing to pay upfront. After month 12 the site is yours and the price drops to care.' },
-  { question: 'Can I pay upfront instead?', answer: `Yes. Starter is ${money(plans[0].upfront)}, Business ${money(plans[1].upfront)} and Growth ${money(plans[2].upfront)}, paid once. The first year of hosting and edits is included.` },
-  { question: 'What if I want to leave early?', answer: 'Within the first 30 days you get a full refund. After that, you can buy out the months left at the build part of your plan, and the site is yours.' },
-  { question: 'What counts as an edit?', answer: 'Anything you would ask a designer to change: text, photos, a new section or page within your plan, a new form. Your monthly hours roll into one request queue, and each change is done within two business days.' },
-  { question: 'Is there anything else to pay?', answer: 'Your domain name, usually about $10 to $20 a year, registered in your name. Hosting, SSL, forms and backups are included.' },
+  { question: 'Is there a deposit?', answer: "No. We build your preview first. You pay the one-time price in full only when you've seen the site and want to keep it." },
+  { question: 'What happens after I pay?', answer: 'Your site goes live on your domain within 2 working days. The domain is registered in your name, and you get every file and login.' },
+  { question: 'What does a revision round mean?', answer: `One set of changes you send together, after you see the preview. Starter includes 1 round, Business 2 and Growth 3. Extra pages are ${peso(3000)} each.` },
+  { question: 'Is there anything else to pay?', answer: 'Only your domain name, about ₱700 a year for a .com, at cost and in your name. We show you the renewal price before you buy. Care is optional.' },
+  { question: 'Do you give official receipts?', answer: 'Yes, for every payment, by GCash, Maya, bank transfer or card.' },
+  { question: 'What if something breaks after launch?', answer: 'Any bug in the first 30 days is fixed free, with or without a care plan.' },
 ];
 ---
-<Base title="Pricing" description="Website plans from $149 a month, $0 down, or paid once from $1,500. Live in 14 days, 30-day money back, and you own the site." schema={[faqSchema(faqs)]} crumbs={[{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/pricing/' }]}>
-  <Hero eyebrow="Pricing" headline="$0 down. Plain prices." text="One monthly price for 12 months covers the design, the build, hosting and edits. Or pay once upfront. Either way, you own your content and domain from day one." />
+<Base title="Pricing" description={`Websites in Cebu from ${peso(plans[0].price)}, paid once, only after you see a free preview. Care optional from ₱990 a month. Every price published.`} schema={[faqSchema(faqs)]} crumbs={[{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/pricing/' }]}>
+  <Hero eyebrow="Prices in pesos" headline="See it free. Pay once if you love it." text="Every price is on this page, and the quote is the published price. No deposit, no contract to start, and care is optional." />
 
-  <Section heading="Plans" intro="Every plan includes the design, the build, hosting, SSL and monthly edits.">
-    <Plans detail />
+  <Section heading="Websites" intro="One-time prices. You pay in full only after you approve your free preview.">
+    <Plans />
   </Section>
 
-  <Founding heading="Founding offer: your price for life" text={`The first ${foundingSpots} businesses keep their monthly price for as long as they stay, including care after year one. In return, we ask for a testimonial and a short case study.`} />
-
-  <Section heading="The guarantee">
-    <dl class="grid gap-5 md:grid-cols-3">
-      <div class="tile p-6"><dt class="text-[1.375rem] [font-family:var(--font-display)] tracking-[-0.02em]">Live in 14 days</dt><dd class="mt-2 text-[0.9375rem] text-muted">Your site is live 14 days after we have your content, or your first month is free.</dd></div>
-      <div class="tile p-6"><dt class="text-[1.375rem] [font-family:var(--font-display)] tracking-[-0.02em]">30-day money back</dt><dd class="mt-2 text-[0.9375rem] text-muted">Not happy within 30 days of signing up? You get a full refund.</dd></div>
-      <div class="tile p-6"><dt class="text-[1.375rem] [font-family:var(--font-display)] tracking-[-0.02em]">You own it</dt><dd class="mt-2 text-[0.9375rem] text-muted">Content and domain from day one. The site after month 12, or any time by buyout.</dd></div>
-    </dl>
+  <Section id="preview" heading="How the free preview works" intro="Free, fair and capped, so we can keep offering it.">
+    <PreviewRules />
   </Section>
 
-  <Section heading="After the first year and early buyout" tone="surface">
-    <div class="overflow-x-auto">
-      <table class="w-full min-w-[36rem] text-left">
-        <thead>
-          <tr class="border-b border-line">
-            <th class="label py-3 pr-6 font-medium">Plan</th>
-            <th class="label py-3 pr-6 font-medium">Monthly, 12 months</th>
-            <th class="label py-3 pr-6 font-medium">Or upfront</th>
-            <th class="label py-3 pr-6 font-medium">From month 13</th>
-            <th class="label py-3 font-medium">Buyout per month left</th>
-          </tr>
-        </thead>
-        <tbody>
-          {plans.map((p) => (
-            <tr class="border-b border-line">
-              <th scope="row" class="py-4 pr-6 text-[1.375rem] font-normal [font-family:var(--font-display)]">{p.name}</th>
-              <td class="py-4 pr-6 tabular-nums">{money(p.monthly)}</td>
-              <td class="py-4 pr-6 tabular-nums">{money(p.upfront)}</td>
-              <td class="py-4 pr-6">{p.care}</td>
-              <td class="py-4 tabular-nums">{money(p.buyout)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+  <Section heading="Care plans" intro="Optional and month to month. Leave anytime and take everything with you.">
+    <Care />
   </Section>
 
-  <Section heading="Pricing questions" layout="split">
+  <Section id="low-budget" heading="Little or no budget?" intro="We want every small business in Cebu to own its website. Three ways to start small.">
+    <LowBudget />
+  </Section>
+
+  <Section heading="Our promise, in writing" intro="It's in every quote we send.">
+    <Pledge />
+  </Section>
+
+  <Founding />
+
+  <Section heading="After launch, if you want more">
+    <ul class="grid gap-5 md:grid-cols-3">
+      <li class="tile p-6"><h3 class="text-[1.0625rem]">Extra pages</h3><p class="mt-2 text-[0.9375rem] text-muted">{peso(3000)} each.</p></li>
+      <li class="tile p-6"><h3 class="text-[1.0625rem]">AI chat assistant</h3><p class="mt-2 text-[0.9375rem] text-muted">Answers inquiries in English and Cebuano, and hands hard questions to a person. From {peso(1500)} a month.</p></li>
+      <li class="tile p-6"><h3 class="text-[1.0625rem]">Social media management</h3><p class="mt-2 text-[0.9375rem] text-muted">From {peso(9990)} a month, for up to 4 clients at a time.</p></li>
+    </ul>
+  </Section>
+
+  <Section heading="Price questions" layout="split">
     <Faq items={faqs} />
   </Section>
 
-  <CtaBand heading="Pick a plan on a call" text="Not sure which plan fits? Tell us what you need and we'll recommend one, with no pressure to sign." />
+  <CtaBand heading="Get your free preview" label="Get my free preview" text="Not sure which package fits? Tell us what you need and we'll recommend one, with no pressure to buy." />
 </Base>

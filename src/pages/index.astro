@@ -8,38 +8,43 @@ import CtaBand from '../components/CtaBand.astro';
 import Fan from '../components/Fan.astro';
 import Steps from '../components/Steps.astro';
 import Work from '../components/Work.astro';
+import ClientWork from '../components/ClientWork.astro';
 import Founding from '../components/Founding.astro';
+import Pledge from '../components/Pledge.astro';
 import home from '../content/singletons/home.json';
 import { faqSchema } from '../lib/schema';
 import { foundingSpots } from '../lib/pricing';
-
-const owns = [
-  { title: 'Your content and domain', text: 'Yours from day one. The domain is registered in your name.' },
-  { title: 'Your site after month 12', text: 'After the first year the site is yours to keep, move or hand to anyone else.' },
-  { title: '30-day money back', text: 'Not happy in the first 30 days? You get a full refund.' },
-];
 ---
 <Base title={home.title} description={home.description} schema={[faqSchema(home.faqs)]}>
   <section class="hero relative isolate overflow-x-clip">
     <div class="guides" aria-hidden="true"></div>
     <div class="container-site rise flex flex-col items-center pt-16 text-center md:pt-24">
-      <p class="chip mb-7"><span class="chip-dot" aria-hidden="true"></span>Taking {foundingSpots} founding clients</p>
-      <h1 class="max-w-[15ch] text-[length:min(var(--text-h1),10vh+0.5rem)] [font-variation-settings:'opsz'_72]">{home.heroHeadline}</h1>
+      <p class="chip mb-7"><span class="chip-dot" aria-hidden="true"></span>Cebu City · taking {foundingSpots} founding clients</p>
+      <h1 class="max-w-[17ch] text-[length:min(var(--text-h1),10vh+0.5rem)] [font-variation-settings:'opsz'_72]">{home.heroHeadline}</h1>
       <p class="mt-6 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.35vw,1.25rem)] text-muted">{home.heroText}</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a class="btn btn-primary" href="/contact/">{home.primaryLabel}</a>
         <a class="btn btn-secondary" href="/pricing/">{home.secondaryLabel}</a>
       </div>
-      <p class="mt-4 text-[0.8125rem] text-muted">$0 down · from $149 a month · live in 14 days · you own it</p>
+      <p class="mt-4 text-[0.8125rem] text-muted">Human-designed websites, built at AI speed · from ₱18,000 once · no deposit</p>
     </div>
     <Fan />
   </section>
 
-  <Section heading="Live in 14 days" intro="The clock starts the day we have your content. Miss it, and your first month is free.">
+  <Section heading="See it first. Pay only if you love it." intro="No deposit and no contract to start. You click through your real website before you decide.">
     <Steps />
+    <p class="mt-10"><a href="/pricing/#preview" class="btn btn-secondary">How the free preview works</a></p>
   </Section>
 
-  <Section heading="One designer, every kind of business" intro="Each site is designed for the business it sells, not poured into a template. Hover the hand above, or look closer here.">
+  <Section heading="Our promise, in writing" intro="Cebu's web market runs on trust. Here's ours, on this page and in every quote.">
+    <Pledge />
+  </Section>
+
+  <Section heading="Recent work" intro="Websites Glen has built for businesses and a charity in Australia and the US.">
+    <ClientWork />
+  </Section>
+
+  <Section heading="Design samples" intro="Concepts for the kinds of business we build for, made to show the range. Each one is designed for what it sells, not poured into a template.">
     <Work />
   </Section>
 
@@ -54,31 +59,30 @@ const owns = [
     </ul>
   </Section>
 
-  <Section heading="Plans" intro="One price a month for 12 months, $0 down. Or pay once upfront. Hosting, SSL and edits are included.">
+  <Section heading="One price, paid once" intro="Every price is on this page, and the quote is the published price. Care is optional, from ₱990 a month.">
     <Plans />
-    <p class="mt-8"><a href="/pricing/" class="btn btn-secondary">Full pricing, care and buyout terms</a></p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/pricing/" class="btn btn-secondary">Care plans and full terms</a>
+      <a href="/pricing/#low-budget" class="btn btn-secondary">Little or no budget? Start from ₱4,990</a>
+    </div>
   </Section>
 
   <Founding />
 
-  <Section heading="Built for your kind of business" intro="We start with two kinds of business where a well-designed site wins customers fast.">
+  <Section heading="Built for Cebu businesses" intro="We start with businesses where one new customer pays for the whole website.">
     <IndustryCards />
   </Section>
 
-  <Section heading="You own it. No traps.">
-    <dl class="grid gap-5 md:grid-cols-3">
-      {owns.map((o) => (
-        <div class="tile p-6">
-          <dt class="text-[1.375rem] [font-family:var(--font-display)] tracking-[-0.02em]">{o.title}</dt>
-          <dd class="mt-2 text-[0.9375rem] text-muted">{o.text}</dd>
-        </div>
-      ))}
-    </dl>
+  <Section heading="Free websites for ministries">
+    <div class="tile grid gap-6 p-6 md:grid-cols-12 md:items-center md:p-10">
+      <p class="text-[1.0625rem] text-ink-2 md:col-span-8">Each year, up to 4 qualified churches, missions and faith-based nonprofits get a complete website from us, free. It's capped so paid work always comes first, and it's how we give back to Cebu.</p>
+      <div class="md:col-span-4 md:justify-self-end"><a href="/giving/" class="btn btn-primary">See who qualifies</a></div>
+    </div>
   </Section>
 
   <Section heading={home.faqHeading} layout="split">
     <Faq items={home.faqs} />
   </Section>
 
-  <CtaBand heading={home.ctaHeading} text={home.ctaText} />
+  <CtaBand heading={home.ctaHeading} text={home.ctaText} label="Get my free preview" />
 </Base>

@@ -1,8 +1,8 @@
 ---
 import { settings } from '../lib/settings';
 import { HONEYPOT_FIELD } from '../lib/lead';
-interface Props { id?: string; heading?: string; formName?: string; showMessage?: boolean; submitLabel?: string }
-const { id = 'lead-form', heading, formName = 'contact', showMessage = true, submitLabel = 'Send request' } = Astro.props;
+interface Props { id?: string; heading?: string; formName?: string; showMessage?: boolean; messageLabel?: string; messageHint?: string; submitLabel?: string }
+const { id = 'lead-form', heading, formName = 'contact', showMessage = true, messageLabel = 'Your business and what you need', messageHint, submitLabel = 'Send request' } = Astro.props;
 const tel = settings.phone.replace(/[^\d+]/g, '');
 const input = 'mt-1.5 block w-full rounded-[var(--radius-in)] border-0 bg-bg px-4 py-3 text-ink shadow-[inset_0_0_0_1px_var(--color-line-2)] transition-shadow hover:shadow-[inset_0_0_0_1px_var(--color-ink-2)] focus:shadow-[inset_0_0_0_1px_var(--color-ink)]';
 ---
@@ -27,8 +27,9 @@ const input = 'mt-1.5 block w-full rounded-[var(--radius-in)] border-0 bg-bg px-
   </div>
   {showMessage && (
     <div>
-      <label for={`${id}-message`} class="text-[0.9375rem] font-medium">Your business and what you need</label>
-      <textarea id={`${id}-message`} name="message" rows="4" class={input}></textarea>
+      <label for={`${id}-message`} class="text-[0.9375rem] font-medium">{messageLabel}</label>
+      {messageHint && <p id={`${id}-message-hint`} class="mt-1 text-[0.8125rem] text-muted">{messageHint}</p>}
+      <textarea id={`${id}-message`} name="message" rows={messageHint ? 6 : 4} class={input} aria-describedby={messageHint ? `${id}-message-hint` : undefined}></textarea>
     </div>
   )}
   <p class="text-sm text-muted">We need your name and an email or phone number.</p>

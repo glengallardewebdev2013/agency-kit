@@ -1,3 +1,21 @@
+// Recent client websites by Glen. Shown first, as real work.
+export interface ClientSite {
+  name: string;
+  url: string;
+  kind: string;
+  where: string;
+  note: string;
+}
+
+export const clientSites: ClientSite[] = [
+  { name: 'Exit Advisory Group', url: 'https://exitadvisory.com.au/', kind: 'M&A advisory and business brokerage', where: 'Sydney, Melbourne and Perth', note: 'Valuations, sales and exit planning, with case studies, testimonials, articles and a newsletter.' },
+  { name: 'Pre-Filters', url: 'https://prefilters.com.au/', kind: 'Online store for water filters', where: 'Australia', note: 'A store that sorts filters by water source, with a water quiz, bundles and subscribe-and-save refills.' },
+  { name: 'RecovAdapt', url: 'https://recovadapt.com.au/', kind: 'Online supplement store', where: 'Australia', note: 'Naturopath-formulated supplements, with a health quiz, goal-based bundles and customer reviews.' },
+  { name: 'Ridgeline Roofers', url: 'https://www.ridgelineroofers.com/', kind: 'Roofing, siding and gutters', where: 'Ashburn, Virginia, USA', note: 'A family roofing company, with Google reviews, a page per service, service areas and a project map.' },
+  { name: 'Brandon Insurance', url: 'https://brandoninsuranceinc.com/', kind: 'Independent insurance agency', where: 'Brandon, Florida, USA', note: 'A family-owned agency since 1960, with a page per insurance type, carrier partners, testimonials, a blog and quote requests.' },
+  { name: 'GAT Foundation', url: 'https://gatfoundation.org.au/', kind: 'Volunteer-run charity', where: 'Melbourne, serving the Philippines', note: 'Collects books in Australia and rehomes them in Philippine schools, with impact numbers and ways to get involved.' },
+];
+
 // Concept sites: made-up businesses designed to show the range of work.
 // They are not client work, and every page that shows them says so.
 // Photos come from Wikimedia Commons; credits are listed on the home page.

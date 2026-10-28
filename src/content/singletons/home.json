@@ -1,28 +1,28 @@
 {
-  "title": "GallarDesign: human-designed websites, built at AI speed",
-  "description": "Websites for growing businesses, designed by a person and built fast. Live in 14 days, $0 down, plans from $149 a month, and you own it.",
-  "heroHeadline": "Websites that bring in work",
-  "heroText": "GallarDesign designs and builds fast, search-ready websites for small businesses. A real designer leads every site, and AI does the heavy lifting, so you're live in 14 days.",
-  "primaryLabel": "Start a project",
-  "secondaryLabel": "See pricing",
+  "title": "GallarDesign: see your website first, pay only if you love it",
+  "description": "A Cebu web studio that builds your website free in 3 working days. Pay once from ₱18,000 only if you love it. Published prices, and you own everything.",
+  "heroHeadline": "See your website first. Pay only if you love it.",
+  "heroText": "GallarDesign is Cebu's honest, AI-powered web studio. We build your website in 3 working days before you pay a peso. Our prices are on this page, and you own everything.",
+  "primaryLabel": "Get my free preview",
+  "secondaryLabel": "See the prices",
   "servicesHeading": "What you get",
-  "servicesIntro": "Everything a small business site needs to win customers, without a long contract or a locked-in platform.",
-  "reasonsHeading": "Why owners pick GallarDesign",
+  "servicesIntro": "Everything a small business site needs to win customers, without a deposit or a locked-in contract.",
+  "reasonsHeading": "AI-first, in ways you can check",
   "reasons": [
-    { "title": "Designed by a person", "text": "Your site is designed for your business by a real designer, not assembled from a template by a bot." },
-    { "title": "Built at AI speed", "text": "AI handles the repetitive build work, so you're live in 14 days from the day we have your content." },
-    { "title": "Yours to own", "text": "Your content and domain are yours from day one. The site is yours after month 12, or any time by buyout." },
-    { "title": "Changes in two days", "text": "Send a change and it's done within two business days. Post to your blog yourself, any time." }
+    { "title": "A free preview in 3 working days", "text": "A designer leads, and AI does the repetitive build work. You see a real site in days, not months." },
+    { "title": "Edits by chat", "text": "Send a Messenger or Viber message. On Care Plus, it's done within 1 working day." },
+    { "title": "Ready for AI search", "text": "Clean structure and schema, so ChatGPT, Gemini and Google's AI answers can find and cite your business." },
+    { "title": "Honest about AI", "text": "We tell you what AI did and what a person did. Real photos of your business, never AI-made people." }
   ],
   "faqHeading": "Questions owners ask",
   "faqs": [
-    { "question": "What does $0 down mean?", "answer": "You pay nothing to start. The plan is a monthly price for 12 months that covers the design, the build, hosting and edits. If you'd rather pay once, every plan has an upfront price." },
-    { "question": "What happens after 12 months?", "answer": "The site is yours. Starter moves to care at $79 a month and Business to $129, which covers hosting, updates and edits. Growth can stay on as a monthly SEO plan. You can also take the site elsewhere." },
-    { "question": "Can I leave before 12 months?", "answer": "Yes. You can buy out the rest of the year at the build part of your plan for each month left: $70 a month on Starter, $170 on Business and $300 on Growth. Within the first 30 days you get a full refund instead." },
-    { "question": "How is it live in 14 days?", "answer": "The clock starts when we have your content: text, photos and logo. If you don't have them, we help you write and gather them. If we miss the 14 days, your first month is free." },
-    { "question": "Will I be able to edit the site?", "answer": "You can write and publish blog posts and change search titles yourself in a simple editor. For anything else, send us the change and it's done within two business days." },
-    { "question": "Do you work with agencies?", "answer": "Yes. Agencies can hire GallarDesign white label, with their name on the work. See the page for agencies." }
+    { "question": "Is the preview really free?", "answer": "Yes. We build your site and show it to you before you pay anything. If you don't love it, you owe nothing. We take up to 4 free previews a month, one per business, and we start once we have your logo, photos and services." },
+    { "question": "Why one payment instead of a monthly plan?", "answer": "Because you should own what you pay for. You pay once, the day you approve the site, and everything moves to you: domain, files and logins. Care is a separate, optional monthly plan you can stop anytime." },
+    { "question": "What if I have little or no budget?", "answer": "Start with a Simple Page for ₱4,990, pay Starter in 3 payments of ₱6,500, or take Starter with ₱0 down at ₱2,490 a month for 12 months, care included." },
+    { "question": "Do I have to sign up for care?", "answer": "No. Care is optional and month to month. Without it, we move your site to a free Cloudflare account in your name and hand everything over. You only pay for your domain." },
+    { "question": "How do I pay?", "answer": "In full by GCash, Maya, bank transfer or card, once you approve the preview. You get an official receipt for every payment." },
+    { "question": "Do you help churches and ministries?", "answer": "Yes. Up to 4 qualified ministries a year get a free website. See the Giving page for who qualifies and how to apply." }
   ],
-  "ctaHeading": "Tell us about your business",
-  "ctaText": "Send a few lines about what you do and what you need. You'll get a reply within one business day."
+  "ctaHeading": "Get your free preview",
+  "ctaText": "Tell us about your business. You'll get a reply within one working day, and a preview in 3 working days if it's a fit."
 }

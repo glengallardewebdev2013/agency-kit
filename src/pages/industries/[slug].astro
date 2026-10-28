@@ -20,11 +20,11 @@ const d = industry.data;
 ---
 <Base
   title={d.seoTitle || `Websites for ${d.title.toLowerCase()}`}
-  description={d.seoDescription || `${d.summary} Live in 14 days, $0 down, and you own it.`}
+  description={d.seoDescription || `${d.summary} See your website free first, pay once if you love it.`}
   schema={[faqSchema(d.faqs)]}
   crumbs={[{ name: 'Home', path: '/' }, { name: 'Industries', path: '/industries/' }, { name: d.title, path: `/industries/${industry.id}/` }]}
 >
-  <Hero eyebrow={`For ${d.title.toLowerCase()}`} headline={d.headline} text={d.summary} primary={{ label: 'Start a project', href: '/contact/' }} secondary={{ label: 'See the plans', href: '#plans' }} />
+  <Hero eyebrow={`For ${d.title.toLowerCase()}`} headline={d.headline} text={d.summary} primary={{ label: 'Get my free preview', href: '/contact/' }} secondary={{ label: 'See the prices', href: '#plans' }} />
   <Section tone="surface">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="prose-site lg:col-span-7"><Content /></div>
@@ -38,7 +38,7 @@ const d = industry.data;
       )}
     </div>
   </Section>
-  <Section id="plans" heading="Plans" intro="$0 down, one price a month for 12 months. Live 14 days after we have your content, or month one is free.">
+  <Section id="plans" heading="One price, paid once" intro="You see a free preview first and pay only if you love it. Care is optional, from ₱990 a month.">
     <Plans />
   </Section>
   {d.faqs.length > 0 && (
@@ -46,5 +46,5 @@ const d = industry.data;
       <Faq items={d.faqs} />
     </Section>
   )}
-  <CtaBand heading="Let's talk about your site" text="Send a few lines about your business. You'll get a reply within one business day." />
+  <CtaBand heading="Get your free preview" label="Get my free preview" text="Send a few lines about your business. You'll get a reply within one working day." />
 </Base>

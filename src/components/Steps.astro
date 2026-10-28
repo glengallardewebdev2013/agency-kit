@@ -1,10 +1,10 @@
 ---
-// Live in 14 days, as four steps, each over a small drawing of that step.
+// See it first, pay once: four steps, each over a small drawing of that step.
 const steps = [
-  { when: 'Day 0', title: 'A 30-minute call', text: 'We talk about your business, your customers and what the site needs to do. No charge.' },
-  { when: 'Day 1', title: 'Your content', text: "You send text, photos and your logo. If you have none, we help you write and gather them." },
-  { when: 'Days 2 to 13', title: 'Design, build, review', text: 'A designer lays out your pages and the build runs at AI speed. You click through the real site and send changes.' },
-  { when: 'Day 14', title: 'Live', text: 'Your site goes live on your domain, with tracking and search basics in place.' },
+  { when: 'Day 0', title: 'A short call', text: "We talk about your business, your customers and what the site needs to do. If you don't need a website yet, we'll say so." },
+  { when: 'Day 1', title: 'Your content', text: 'You send your logo, 5 to 10 real photos and your services. We start the day we have them.' },
+  { when: 'Working days 2 to 4', title: 'Your free preview', text: 'A designer lays out your pages and the build runs at AI speed. You click through the real site, free.' },
+  { when: 'When you say yes', title: 'Pay once, go live', text: 'Pay only if you love it. It goes live on your domain within 2 working days, and every file and login is yours.' },
 ];
 ---
 <ol class="steps">
@@ -22,7 +22,7 @@ const steps = [
             <li><span class="dot"></span>logo.svg</li>
             <li><span class="dot"></span>12 photos</li>
             <li><span class="dot"></span>services and prices</li>
-            <li class="files-help">We help write the rest</li>
+            <li class="files-help">We start the day they arrive</li>
           </ul>
         )}
         {i === 2 && (
@@ -34,7 +34,7 @@ const steps = [
           <div class="live">
             <div class="live-bar"><span class="live-dot"></span>yourbusiness.com</div>
             <div class="live-page"><i></i><i></i><i></i></div>
-            <span class="live-tag">Live</span>
+            <span class="live-tag">Paid · live</span>
           </div>
         )}
       </div>

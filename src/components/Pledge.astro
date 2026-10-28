@@ -1,0 +1,20 @@
+---
+// The integrity pledge. It is on the home page, the pricing page and in every quote.
+const pledge = [
+  'You see your website before you pay anything.',
+  'The price on our website is the price you pay. No hidden fees.',
+  'Your domain is in your name. Your site, files and logins are yours the day you pay.',
+  'Care is optional and month to month. Leave anytime and take everything with you.',
+  "If you don't need a website yet, we'll tell you, and show you what to do instead.",
+  'Any bug in the first 30 days is fixed free.',
+  'We issue an official receipt for every payment.',
+];
+---
+<ol class="grid gap-px overflow-hidden rounded-site bg-line md:grid-cols-2">
+  {pledge.map((p, i) => (
+    <li class="flex gap-5 bg-bg p-6 md:last:col-span-2">
+      <span class="figure w-8 flex-none text-[2rem] text-accent" aria-hidden="true">{i + 1}</span>
+      <span class="pt-1 text-[1.0625rem]">{p}</span>
+    </li>
+  ))}
+</ol>

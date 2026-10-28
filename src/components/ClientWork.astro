@@ -1,0 +1,32 @@
+---
+import { clientSites } from '../lib/work';
+---
+<ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  {clientSites.map((c) => (
+    <li class="client tile relative flex flex-col p-6">
+      <p class="label">{c.kind} · {c.where}</p>
+      <h3 class="mt-3 text-[1.625rem] [font-family:var(--font-display)] !font-normal tracking-[-0.02em]">
+        <a href={c.url} rel="noopener" target="_blank" class="no-underline after:absolute after:inset-0 after:rounded-site">{c.name}<span class="sr-only"> (opens in a new tab)</span></a>
+      </h3>
+      <p class="mt-2 text-[0.9375rem] text-muted">{c.note}</p>
+      <span class="mt-auto pt-6 text-[0.9375rem] font-medium" aria-hidden="true">Visit the site <span class="arrow">↗</span></span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .client {
+    transition: box-shadow 320ms var(--ease), background-color 320ms var(--ease);
+  }
+  .client:hover {
+    background: var(--color-bg);
+    box-shadow: inset 0 0 0 1px var(--color-ink), var(--shadow-2);
+  }
+  .arrow {
+    display: inline-block;
+    transition: transform 320ms var(--ease-spring);
+  }
+  .client:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+</style>

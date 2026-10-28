@@ -1,7 +1,7 @@
 ---
 import { getIndustries } from '../lib/content';
 // A concept site that suits each industry, shown as its picture.
-const pictures: Record<string, string> = { 'med-spas': 'spa', 'home-improvement': 'remodel' };
+const pictures: Record<string, string> = { 'dental-and-aesthetic-clinics': 'spa', 'resorts-and-tours': 'land' };
 const industries = await getIndustries();
 ---
 <ul class="grid gap-5 md:grid-cols-2">

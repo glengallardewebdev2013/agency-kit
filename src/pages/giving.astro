@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Faq from '../components/Faq.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { faqSchema } from '../lib/schema';
+
+const gets = [
+  'A Business-level website, up to 7 pages: about, beliefs or mission, services and schedules, events, giving or donation details, contact and map',
+  "Hosted free on Cloudflare in your ministry's own account, with the domain in your name",
+  'Optional care at half price, ₱495 a month',
+];
+const qualifies = [
+  'A church, mission or faith-based nonprofit that is SEC-registered, or vouched for by its denomination, diocese or a pastor network',
+  'Doing active community or outreach work',
+  'One contact person who can send the text and photos within 2 weeks',
+];
+const faqs = [
+  { question: 'How many ministries do you help?', answer: 'Up to 4 a year, one each quarter. It is capped so paid work always comes first and every free site gets the same care as a paid one.' },
+  { question: 'What if no ministry applies in a quarter?', answer: 'A micro business or cooperative doing good work in Cebu may take that slot.' },
+  { question: 'Is it really free?', answer: 'Yes. The design, the build and the hosting are free. You pay only for your domain name, about ₱700 a year, in your ministry\'s name. Care is optional at half price.' },
+  { question: 'Will you announce who is chosen?', answer: 'Only with your permission.' },
+];
+---
+<Base title="Giving: free websites for ministries" description="Each year GallarDesign builds free websites for up to 4 qualified churches, missions and faith-based nonprofits. See who qualifies and apply." schema={[faqSchema(faqs)]} crumbs={[{ name: 'Home', path: '/' }, { name: 'Giving', path: '/giving/' }]}>
+  <Hero eyebrow="Giving program" headline="Free websites for ministries" text="Each year we build complete websites, free, for up to 4 qualified churches, missions and faith-based nonprofits. One each quarter." primary={{ label: 'Apply', href: '#apply' }} />
+
+  <Section heading="What your ministry gets">
+    <ul class="grid gap-5 md:grid-cols-3">
+      {gets.map((g) => <li class="tile p-6 text-[0.9375rem]">{g}</li>)}
+    </ul>
+  </Section>
+
+  <Section heading="Who qualifies">
+    <ul class="grid gap-5 md:grid-cols-3">
+      {qualifies.map((q, i) => (
+        <li class="tile p-6">
+          <span class="figure text-[2.5rem] text-accent" aria-hidden="true">{i + 1}</span>
+          <p class="mt-3 text-[0.9375rem]">{q}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section id="apply" heading="Apply" intro="Glen reads every application and picks each quarter's ministry. You'll hear back either way.">
+    <div class="panel max-w-3xl p-6 md:p-10">
+      <LeadForm
+        id="giving"
+        formName="giving"
+        messageLabel="About your ministry"
+        messageHint="Your ministry's name, its SEC registration or who endorses you (denomination, diocese or pastor network), what you do in the community, and why a website would help."
+        submitLabel="Send application"
+      />
+    </div>
+  </Section>
+
+  <Section heading="Questions" layout="split">
+    <Faq items={faqs} />
+  </Section>
+</Base>

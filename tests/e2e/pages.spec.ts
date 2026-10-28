@@ -4,7 +4,7 @@ import { builtPages } from './pages';
 const pages = builtPages();
 
 test('the build produced the core templates', () => {
-  for (const path of ['/', '/services/', '/industries/', '/pricing/', '/agencies/', '/about/', '/contact/', '/blog/', '/thanks/', '/form-error/']) {
+  for (const path of ['/', '/services/', '/industries/', '/pricing/', '/agencies/', '/giving/', '/about/', '/contact/', '/blog/', '/thanks/', '/form-error/']) {
     expect(pages).toContain(path);
   }
 });
@@ -39,7 +39,7 @@ test('unknown URLs get the 404 page', async ({ page }) => {
 
 test('main navigation reaches every section', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  for (const label of ['Services', 'Industries', 'Pricing', 'For agencies', 'About', 'Blog']) {
+  for (const label of ['Services', 'Industries', 'Pricing', 'Giving', 'About', 'Blog']) {
     await page.goto('/');
     await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: label }).click();
     await expect(page.locator('h1')).toBeVisible();
@@ -50,7 +50,7 @@ test('main navigation reaches every section', async ({ page }) => {
 test('mobile menu opens and links work', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('/');
-  await page.getByText('Menu').click();
+  await page.getByText('Menu', { exact: true }).click();
   await page.getByRole('navigation', { name: 'Mobile' }).getByRole('link', { name: 'Pricing' }).click();
   await expect(page).toHaveURL(/\/pricing\/$/);
 });
