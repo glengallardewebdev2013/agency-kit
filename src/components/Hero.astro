@@ -1,14 +1,16 @@
 ---
 interface Action { label: string; href: string }
-interface Props { headline: string; text?: string; primary?: Action; secondary?: Action }
-const { headline, text, primary, secondary } = Astro.props;
+interface Props { headline: string; text?: string; eyebrow?: string; primary?: Action; secondary?: Action }
+const { headline, text, eyebrow, primary, secondary } = Astro.props;
 ---
-<section class="container-site pt-12 pb-16 md:pt-20 md:pb-24">
-  <div class="max-w-5xl">
-    <h1 class="text-5xl md:text-7xl">{headline}</h1>
-    {text && <p class="mt-6 max-w-2xl text-lg text-ink-2 md:text-xl">{text}</p>}
+<section class="relative isolate">
+  <div class="guides" aria-hidden="true"></div>
+  <div class="container-site rise flex flex-col items-center pt-20 pb-4 text-center md:pt-28">
+    {eyebrow && <p class="chip mb-6"><span class="chip-dot" aria-hidden="true"></span>{eyebrow}</p>}
+    <h1 class="max-w-[16ch] text-[length:var(--text-h1)]">{headline}</h1>
+    {text && <p class="mt-6 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.35vw,1.25rem)] text-muted">{text}</p>}
     {(primary || secondary) && (
-      <div class="mt-8 flex flex-wrap items-center gap-6">
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         {primary && <a class="btn btn-primary" href={primary.href}>{primary.label}</a>}
         {secondary && <a class="btn btn-secondary" href={secondary.href}>{secondary.label}</a>}
       </div>

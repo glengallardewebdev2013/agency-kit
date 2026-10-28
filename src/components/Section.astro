@@ -1,11 +1,35 @@
 ---
-interface Props { heading?: string; intro?: string; id?: string; tone?: 'plain' | 'surface' | 'field' }
-const { heading, intro, id, tone = 'plain' } = Astro.props;
+// tone "field" sets the section on an ink panel; layout "split" puts the
+// heading on the left third and the content beside it (used for questions).
+interface Props { heading?: string; intro?: string; id?: string; tone?: 'plain' | 'surface' | 'field'; layout?: 'stack' | 'split' }
+const { heading, intro, id, tone = 'plain', layout = 'stack' } = Astro.props;
 ---
-<section id={id} class:list={['py-16 md:py-24', tone === 'surface' && 'bg-surface', tone === 'field' && 'field']}>
-  <div class="container-site">
-    {heading && <h2 class="max-w-4xl text-4xl md:text-5xl">{heading}</h2>}
-    {intro && <p class:list={['mt-4 max-w-2xl text-lg', tone === 'field' ? '' : 'text-ink-2']}>{intro}</p>}
-    <div class:list={[heading || intro ? 'mt-10' : '']}><slot /></div>
+<section id={id} class="sec container-site">
+  <div class:list={[tone === 'field' && 'field rounded-site px-6 py-12 md:px-12 md:py-16', tone === 'surface' && 'tile px-6 py-12 md:px-12 md:py-16']}>
+    {layout === 'split' ? (
+      <div class="grid gap-x-6 gap-y-8 md:grid-cols-12">
+        <div class="md:col-span-4">
+          {heading && <h2 class="h2">{heading}</h2>}
+          {intro && <p class="mt-4 text-[1.0625rem] text-muted">{intro}</p>}
+        </div>
+        <div class="md:col-span-7 md:col-start-6"><slot /></div>
+      </div>
+    ) : (
+      <>
+        {(heading || intro) && (
+          <div class="head mb-12 md:mb-16">
+            {heading && <h2 class="h2">{heading}</h2>}
+            {intro && <p class="head-sub">{intro}</p>}
+          </div>
+        )}
+        <slot />
+      </>
+    )}
   </div>
 </section>
+
+<style>
+  .sec {
+    padding-top: var(--section-gap);
+  }
+</style>

@@ -10,14 +10,14 @@ const mapQuery = [a.street, a.city, a.region, a.postalCode].filter(Boolean).join
 const tel = settings.phone.replace(/[^\d+]/g, '');
 ---
 <Base title="Contact" description={`Contact ${settings.name}. ${settings.tagline}`} crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }]}>
-  <Hero headline="Start a project" text="Tell us about your business and what you need. You'll get a reply within one business day, and a 30-minute call if it's a fit." />
+  <Hero eyebrow="Contact" headline="Start a project" text="Tell us about your business and what you need. You'll get a reply within one business day, and a 30-minute call if it's a fit." />
   <Section>
     <div class="grid gap-12 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-      <LeadForm />
-      <div class="space-y-3">
-        {settings.phone && <p><span class="font-semibold">Phone:</span> <a href={`tel:${tel}`}>{settings.phone}</a></p>}
-        {settings.email && <p><span class="font-semibold">Email:</span> <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
-        {settings.hours && <p><span class="font-semibold">Hours:</span> {settings.hours}</p>}
+      <div class="panel p-6 md:p-10"><LeadForm /></div>
+      <div class="tile space-y-3 self-start p-6 text-[0.9375rem]">
+        {settings.phone && <p><span class="label block">Phone</span> <a href={`tel:${tel}`}>{settings.phone}</a></p>}
+        {settings.email && <p><span class="label block">Email</span> <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
+        {settings.hours && <p><span class="label block">Hours</span> {settings.hours}</p>}
         {mapQuery && <MapEmbed query={mapQuery} title={`Map to ${settings.name}`} />}
       </div>
     </div>

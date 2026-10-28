@@ -1,0 +1,203 @@
+---
+// Live in 14 days, as four steps, each over a small drawing of that step.
+const steps = [
+  { when: 'Day 0', title: 'A 30-minute call', text: 'We talk about your business, your customers and what the site needs to do. No charge.' },
+  { when: 'Day 1', title: 'Your content', text: "You send text, photos and your logo. If you have none, we help you write and gather them." },
+  { when: 'Days 2 to 13', title: 'Design, build, review', text: 'A designer lays out your pages and the build runs at AI speed. You click through the real site and send changes.' },
+  { when: 'Day 14', title: 'Live', text: 'Your site goes live on your domain, with tracking and search basics in place.' },
+];
+---
+<ol class="steps">
+  {steps.map((s, i) => (
+    <li>
+      <div class="art tile" aria-hidden="true">
+        {i === 0 && (
+          <div class="ask">
+            <p class="ask-me">We need more bookings, not just a nicer site.</p>
+            <ul class="ask-qs"><li>Who books with you today?</li><li>What do they search for?</li><li>What should the site sell first?</li></ul>
+          </div>
+        )}
+        {i === 1 && (
+          <ul class="files">
+            <li><span class="dot"></span>logo.svg</li>
+            <li><span class="dot"></span>12 photos</li>
+            <li><span class="dot"></span>services and prices</li>
+            <li class="files-help">We help write the rest</li>
+          </ul>
+        )}
+        {i === 2 && (
+          <div class="wire">
+            <i class="w-nav"></i><i class="w-h1"></i><i class="w-h1b"></i><i class="w-p"></i><i class="w-btn"></i><i class="w-pic"></i><i class="w-c1"></i><i class="w-c2"></i><i class="w-c3"></i>
+          </div>
+        )}
+        {i === 3 && (
+          <div class="live">
+            <div class="live-bar"><span class="live-dot"></span>yourbusiness.com</div>
+            <div class="live-page"><i></i><i></i><i></i></div>
+            <span class="live-tag">Live</span>
+          </div>
+        )}
+      </div>
+      <p class="label mt-5">{s.when}</p>
+      <h3 class="mt-1 text-[1.0625rem]">{s.title}</h3>
+      <p class="mt-1 max-w-[32ch] text-[0.9375rem] text-muted">{s.text}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  @media (max-width: 1100px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3rem 1.5rem;
+    }
+  }
+  @media (max-width: 560px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .art {
+      aspect-ratio: 4 / 3 !important;
+    }
+  }
+  .art {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+  }
+  .ask {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .ask-me {
+    align-self: flex-end;
+    max-width: 88%;
+    padding: 0.75rem 1rem;
+    border-radius: 14px 14px 8px 14px;
+    background: var(--color-ink);
+    color: var(--color-bg);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+  .ask-qs {
+    display: grid;
+    justify-items: start;
+    gap: 0.5rem;
+  }
+  .ask-qs li,
+  .files li {
+    padding: 0.5rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-bg);
+    box-shadow: var(--shadow-1);
+    font-size: 0.8125rem;
+    color: var(--color-ink-2);
+  }
+  .files {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+  }
+  .files li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .files .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
+  .files .files-help {
+    margin-top: 0.25rem;
+    background: transparent;
+    box-shadow: none;
+    font-family: var(--font-body);
+    color: var(--color-muted);
+  }
+  .wire {
+    position: relative;
+    width: 76%;
+    aspect-ratio: 4 / 5;
+    border-radius: 8px;
+    background: var(--color-bg);
+    box-shadow: var(--shadow-2);
+    overflow: hidden;
+  }
+  .wire i {
+    position: absolute;
+    border-radius: 3px;
+    background: var(--color-surface-2);
+  }
+  .wire .w-nav { left: 6%; top: 5%; width: 88%; height: 3.5%; background: var(--color-line-2); }
+  .wire .w-h1 { left: 8%; top: 16%; width: 70%; height: 6%; background: var(--color-ink); }
+  .wire .w-h1b { left: 8%; top: 24%; width: 48%; height: 6%; background: var(--color-ink); }
+  .wire .w-p { left: 8%; top: 34%; width: 60%; height: 3%; }
+  .wire .w-btn { left: 8%; top: 41%; width: 26%; height: 5.5%; border-radius: 999px; background: var(--color-accent); }
+  .wire .w-pic { left: 8%; top: 52%; width: 84%; height: 22%; }
+  .wire .w-c1 { left: 8%; top: 78%; width: 26%; height: 15%; }
+  .wire .w-c2 { left: 37%; top: 78%; width: 26%; height: 15%; }
+  .wire .w-c3 { left: 66%; top: 78%; width: 26%; height: 15%; }
+  .live {
+    position: relative;
+    width: 86%;
+    border-radius: 8px;
+    background: var(--color-bg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .live-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-ink-2);
+  }
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #1f9d55;
+    box-shadow: 0 0 0 3px rgb(31 157 85 / 0.16);
+  }
+  .live-page {
+    display: grid;
+    gap: 6px;
+    padding: 1rem 0.75rem 1.5rem;
+  }
+  .live-page i {
+    height: 8px;
+    border-radius: 3px;
+    background: var(--color-surface-2);
+  }
+  .live-page i:first-child { width: 70%; height: 14px; background: var(--color-ink); }
+  .live-page i:nth-child(2) { width: 55%; }
+  .live-page i:nth-child(3) { width: 30%; height: 14px; border-radius: 999px; background: var(--color-accent); }
+  .live-tag {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--color-ink);
+    color: var(--color-bg);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+</style>

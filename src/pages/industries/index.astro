@@ -2,16 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
-import CardGrid from '../../components/CardGrid.astro';
+import IndustryCards from '../../components/IndustryCards.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { getIndustries } from '../../lib/content';
-
-const industries = await getIndustries();
 ---
 <Base title="Industries" description="Websites for med spas, aesthetic clinics and home-improvement contractors. Designed by a person, live in 14 days, $0 down." crumbs={[{ name: 'Home', path: '/' }, { name: 'Industries', path: '/industries/' }]}>
   <Hero headline="Websites for businesses that win on trust" text="GallarDesign starts with two kinds of business where a well-designed site wins customers fast. Don't see yours? Get in touch anyway." />
   <Section>
-    <CardGrid cards={industries.map((i) => ({ title: i.data.title, text: i.data.summary, href: `/industries/${i.id}/` }))} />
+    <IndustryCards />
   </Section>
   <CtaBand heading="Tell us about your business" text="Whatever you do, you'll get a straight answer on whether a GallarDesign site fits." />
 </Base>

@@ -1,0 +1,32 @@
+---
+import { foundingSpots } from '../lib/pricing';
+interface Props { heading?: string; text?: string }
+const {
+  heading = 'Founding clients keep their price for life',
+  text = `The first ${foundingSpots} businesses to sign up keep their monthly price for as long as they stay. In return, we ask for a testimonial and a short case study once your site has been live a few months.`,
+} = Astro.props;
+---
+<section class="sec container-site">
+  <div class="founding tile relative isolate grid gap-8 overflow-clip px-6 py-12 md:grid-cols-12 md:items-end md:px-12 md:py-16">
+    <p class="figure text-[clamp(8rem,20vw,16rem)] text-accent md:col-span-4" aria-hidden="true">{foundingSpots}</p>
+    <div class="md:col-span-8">
+      <p class="chip"><span class="chip-dot" aria-hidden="true"></span>Founding offer, {foundingSpots} spots</p>
+      <h2 class="h2 mt-5 max-w-[20ch]">{heading}</h2>
+      <p class="mt-4 max-w-2xl text-[1.0625rem] text-muted">{text}</p>
+      <a href="/contact/" class="btn btn-primary mt-8">Claim a founding spot</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec {
+    padding-top: var(--section-gap);
+  }
+  .founding::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: radial-gradient(60% 90% at 0% 100%, rgb(252 76 2 / 0.12), transparent 70%);
+  }
+</style>

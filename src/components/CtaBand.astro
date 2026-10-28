@@ -1,15 +1,30 @@
 ---
+// The closing call to action. It sits on ink and joins the footer below it.
 interface Props { heading: string; text?: string; label?: string; href?: string }
 const { heading, text, label = 'Start a project', href = '/contact/' } = Astro.props;
 ---
-<section class="field mt-16 py-16 md:py-24">
-  <div class="container-site grid gap-8 md:grid-cols-12 md:items-end">
-    <div class="md:col-span-8">
-      <h2 class="text-4xl md:text-6xl">{heading}</h2>
-      {text && <p class="mt-4 max-w-2xl text-lg">{text}</p>}
-    </div>
-    <div class="md:col-span-4 md:justify-self-end">
-      <a href={href} class="btn btn-primary">{label}</a>
-    </div>
+<section class="cta field relative isolate overflow-clip">
+  <div class="cta-glow" aria-hidden="true"></div>
+  <div class="container-site flex flex-col items-center pt-28 text-center md:pt-36">
+    <h2 class="max-w-[18ch] text-[length:var(--text-h2)]">{heading}</h2>
+    {text && <p class="mt-5 max-w-xl text-[1.0625rem] text-muted">{text}</p>}
+    <a href={href} class="btn btn-primary mt-8">{label}</a>
   </div>
 </section>
+
+<style>
+  .cta {
+    margin-top: var(--section-gap);
+  }
+  .cta-glow {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 0;
+    width: min(1400px, 120vw);
+    height: 100%;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgb(252 76 2 / 0.16), transparent);
+    pointer-events: none;
+  }
+</style>

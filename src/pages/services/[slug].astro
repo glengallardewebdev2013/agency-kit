@@ -29,7 +29,7 @@ const d = service.data;
     <div class="prose-site"><Content /></div>
   </Section>
   {d.faqs.length > 0 && (
-    <Section heading="Questions about this service" tone="surface">
+    <Section heading="Questions about this service" layout="split">
       <Faq items={d.faqs} />
     </Section>
   )}

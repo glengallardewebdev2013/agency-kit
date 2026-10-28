@@ -19,7 +19,7 @@ Glen asked Claude to make the open calls after competitor research ([decisions d
 
 ## Non-goals
 
-- No portfolio or case studies yet. Glen has no niche work to show, and nothing gets invented. The founding offer stands in for proof.
+- No client portfolio or case studies yet. Glen has no niche work to show, and nothing gets invented. Concept sites, clearly labelled, show the style; the founding offer stands in for proof.
 - No booking or payment system. The contact form sends leads to a webhook.
 - No roofing, HVAC, plumbing, dentist or lawyer pages for now.
 
@@ -32,8 +32,10 @@ Glen asked Claude to make the open calls after competitor research ([decisions d
 
 | Area | Decision |
 |---|---|
-| Look | Hallmark theme **Grid**: white poster stock, blue-black ink, Radio Canada Big 700 headings over Radio Canada, flat ultramarine fields, one Swiss red mark. No strokes between sections, radius 0, no shadows. |
-| Logo | Two-line wordmark (Gallar in 700, Design in 400) beside a red square two lines tall. The small mark is a red square with a white G. Files are in `brand/`, with text converted to outlines. |
+| Look | Revised 2026-10-28 at Glen's request: the look of **Hallmark's own site** (usehallmark.com), not one of its themes. Cool paper #FAFAF9, ink #0F0F0E, one orange #FC4C02. Newsreader 400 heads over Geist, Geist Mono for small technical bits. 14px radius on every surface, a full pill on every control, soft layered shadows, faint orange column guides behind the hero, an ink close joined to the footer. The first build used the Grid theme; Glen didn't like it. |
+| Logo | A monogram, at Glen's request: G and D in Fraunces split by an orange slash (the Hallmark "/" idea), beside "GallarDesign" in Fraunces. Option A of three; files in `brand/`, outlined. The favicon is the monogram on an ink tile. |
+| Hero | Hallmark's "dealt hand": the head centred over a fan of concept sites in desktop and phone frames. |
+| Concept work | Four made-up businesses (med spa, painter, remodeler, landscaper) stand in for a portfolio. Every place they appear says they are concepts, not client work. Photos are from Wikimedia Commons via the Hallmark repo, credited on the home page. |
 | Tagline | "Human-designed websites, built at AI speed." |
 | Plans (12 months, $0 down) | Starter $149, Business $299, Growth $549 a month |
 | Upfront instead | $1,500 / $3,000 / $5,000 |
@@ -47,7 +49,7 @@ Glen asked Claude to make the open calls after competitor research ([decisions d
 
 ## Pages
 
-- `/`: hero (headline plus an ultramarine field with "$0 down" as the figure), what you get, how it works in 14 days, plans summary, ownership and guarantee, founding offer, FAQ, closing call to action.
+- `/`: centred hero over the fan of concept sites, live in 14 days (four steps, each over a small drawing), concept work, why owners pick GallarDesign, plans, founding offer, industries, ownership, FAQ, closing call to action.
 - `/pricing/`: three plans, upfront prices, care after year one, the buyout rule, founding offer, guarantee, and a pricing FAQ.
 - `/services/` and three service pages: website design and build, local SEO (Growth), care and hosting.
 - `/industries/` and two niche pages: med spas and aesthetic clinics, home-improvement contractors. This replaces the kit's `locations` collection; GallarDesign sells by niche, not by area.
@@ -61,7 +63,7 @@ Med spa note: forms ask only for name, business, email, phone, website and a mes
 ## Builder's calls (Claude)
 
 - Contact email `hello@gallardesign.com`, since the domain isn't bought yet. No phone or street address until Glen gives them, so the business schema is `ProfessionalService` with no address.
-- Fonts are self-hosted (latin subset) so the site makes no Google Fonts requests.
+- Fonts are self-hosted and subset (Newsreader pinned to 400, Fraunces cut to the letters of the name) so the site makes no Google Fonts requests and stays at Lighthouse 98 to 100.
 - One starter blog post, built from the competitor research: what a $0-down website plan should include.
 
 ## Left open

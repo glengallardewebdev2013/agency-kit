@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
 import Plans from '../../components/Plans.astro';
 import Faq from '../../components/Faq.astro';
@@ -23,25 +24,15 @@ const d = industry.data;
   schema={[faqSchema(d.faqs)]}
   crumbs={[{ name: 'Home', path: '/' }, { name: 'Industries', path: '/industries/' }, { name: d.title, path: `/industries/${industry.id}/` }]}
 >
-  <section class="container-site grid gap-10 pt-10 pb-16 md:pt-16 lg:grid-cols-12 lg:pb-24">
-    <div class="lg:col-span-8">
-      <p class="label">For {d.title.toLowerCase()}</p>
-      <h1 class="mt-3 text-5xl md:text-7xl">{d.headline}</h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink-2 md:text-xl">{d.summary}</p>
-      <div class="mt-8 flex flex-wrap items-center gap-6">
-        <a class="btn btn-primary" href="/contact/">Start a project</a>
-        <a class="btn btn-secondary" href="#plans">See the plans</a>
-      </div>
-    </div>
-  </section>
+  <Hero eyebrow={`For ${d.title.toLowerCase()}`} headline={d.headline} text={d.summary} primary={{ label: 'Start a project', href: '/contact/' }} secondary={{ label: 'See the plans', href: '#plans' }} />
   <Section tone="surface">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="prose-site lg:col-span-7"><Content /></div>
       {d.points.length > 0 && (
         <div class="lg:col-span-5">
-          <h2 class="text-3xl">What your site includes</h2>
+          <h2 class="text-[2rem]">What your site includes</h2>
           <ul class="mt-6 space-y-3">
-            {d.points.map((p) => <li class="flex gap-3"><span aria-hidden="true" class="font-bold text-mark">+</span><span>{p}</span></li>)}
+            {d.points.map((p) => <li class="flex gap-3"><svg class="mt-[0.35em] h-3.5 w-3.5 flex-none text-accent" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><span>{p}</span></li>)}
           </ul>
         </div>
       )}
@@ -51,7 +42,7 @@ const d = industry.data;
     <Plans />
   </Section>
   {d.faqs.length > 0 && (
-    <Section heading="Questions">
+    <Section heading="Questions" layout="split">
       <Faq items={d.faqs} />
     </Section>
   )}
