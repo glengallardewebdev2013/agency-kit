@@ -8,7 +8,7 @@ applies here too.
 
 - Site design: [docs/superpowers/specs/2026-10-28-gallardesign-site-design.md](docs/superpowers/specs/2026-10-28-gallardesign-site-design.md)
 - Look: Hallmark's own site (paper, ink, one orange; Newsreader over Geist; 14px surfaces, pill controls), tokens in `src/styles/tokens.css`
-- Logo: the G/D monogram in Fraunces, files in `brand/`
+- Logo: the "GallarDesign" wordmark in Fraunces, files in `brand/`. The browser-tab icon is a Fraunces G on ink (`brand/gallardesign-icon.svg`)
 - Concept sites in the hero and work section (`public/work/`, `src/lib/work.ts`) are made-up businesses, labelled as concepts, with photo credits on the home page
 - Logo files: `brand/` (outlined SVG; the site's own wordmark is `src/components/Logo.astro`)
 - Prices: `src/lib/pricing.ts`, the one place every page reads them from

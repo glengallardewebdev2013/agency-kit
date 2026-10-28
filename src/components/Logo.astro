@@ -1,31 +1,15 @@
 ---
-// The GallarDesign monogram: G and D in Fraunces split by an orange slash,
-// beside the name in Fraunces. Outlined SVG files are in brand/.
-interface Props { size?: string; mark?: boolean; class?: string }
-const { size = '1.375rem', mark = false, class: className } = Astro.props;
+// The GallarDesign wordmark: the name in Fraunces, nothing else (Glen dropped
+// the G/D monogram on 2026-10-28). Outlined SVG files are in brand/.
+interface Props { size?: string; class?: string }
+const { size = '1.625rem', class: className } = Astro.props;
 ---
-<span class:list={['lockup', className]} style={`font-size:${size}`}>
-  <svg class="lockup-mark" viewBox="-4 -4 193 103" aria-hidden="true" focusable="false">
-    <path fill="currentColor" d="M61 71.9Q61 72.7 60.9 72.9Q60.8 73.1 60.6 73.1Q60.2 73.1 59 72.4Q57.9 71.6 56.5 70.6Q55.1 69.6 53.8 68.9Q52.5 68.1 51.7 68.1Q51.2 68.1 50.1 68.9Q49 69.6 47.1 70.6Q45.2 71.5 42.5 72.3Q39.7 73 36 73Q28.7 73 22.7 70.4Q16.7 67.8 12.3 63.1Q7.9 58.4 5.6 52Q3.2 45.6 3.2 38.1Q3.2 29.7 5.7 22.9Q8.2 16.1 12.8 11.2Q17.4 6.3 23.6 3.6Q29.9 1 37.3 1Q41.9 1 45 2.2Q48.1 3.4 49.8 4.6Q51.5 5.8 51.9 5.8Q52.6 5.8 53.8 4.6Q55 3.4 56.2 2.2Q57.4 1.1 57.8 1.1Q57.9 1.1 58 1.2Q58.1 1.3 58.2 1.7L61.9 21.7Q61.9 21.9 61.9 22Q61.9 22.2 61.8 22.3Q61.7 22.3 61.6 22.3Q61.4 22.2 61.3 22Q58.7 14.9 55 10.4Q51.3 6 46.9 3.9Q42.4 1.8 37.4 1.8Q30.6 1.8 25.3 5.6Q20 9.5 17 17Q13.9 24.6 13.9 35.8Q13.9 47 17.2 55Q20.4 62.9 26 67.2Q31.6 71.5 38.6 71.5Q40.4 71.5 42.6 71Q44.8 70.5 46.8 69.6Q48.8 68.6 50.2 67.2Q51.5 65.8 51.5 64V45.2Q51.5 44.6 51 44.3Q50.6 44 49.7 43.9L42.8 43.2Q42.6 43.2 42.5 43.1Q42.3 43 42.3 42.9Q42.3 42.8 42.4 42.7Q42.5 42.6 42.8 42.6H66.1Q66.3 42.6 66.4 42.7Q66.5 42.8 66.5 42.9Q66.5 43 66.4 43.1Q66.3 43.1 66 43.2L62.3 43.9Q61.6 44 61.3 44.3Q61 44.6 61 45.2Z"/>
-    <path fill="var(--color-accent)" d="M100.5 -4h7.9L80.2 84h-7.9Z"/>
-    <path fill="currentColor" d="M118.9 71.7Q118.9 71.4 119.3 71.4L124.2 70.7Q125.1 70.6 125.4 70.3Q125.8 69.9 125.8 69.4V4.8Q125.8 4.1 125.4 3.8Q125.1 3.4 124.2 3.3L119.3 2.6Q118.9 2.5 118.9 2.3Q118.9 2.1 119 2.1Q119.1 2 119.3 2H141.3Q150.4 2 157.8 4.7Q165.3 7.3 170.6 12.3Q176 17.3 178.9 24.4Q181.8 31.5 181.8 40.3Q181.8 50.2 177.4 57.3Q173 64.4 165.2 68.2Q157.4 72 147.3 72H119.3Q119.1 72 119 71.9Q118.9 71.8 118.9 71.7ZM147.3 71.2Q154.1 71.2 159.4 67.8Q164.8 64.3 167.8 57.1Q170.9 50 170.9 38.9Q170.9 30.4 169 23.7Q167 16.9 163.2 12.3Q159.4 7.6 153.9 5.2Q148.4 2.8 141.4 2.8H136.1V69.4Q136.1 70.3 136.6 70.7Q137 71.2 137.8 71.2Z"/>
-  </svg>
-  {!mark && <span class="lockup-name">GallarDesign</span>}
-</span>
+<span class:list={['lockup', className]} style={`font-size:${size}`}>GallarDesign</span>
 
 <style>
   .lockup {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
+    display: inline-block;
     color: inherit;
-  }
-  .lockup-mark {
-    height: 1.45em;
-    width: auto;
-    flex: none;
-  }
-  .lockup-name {
     font-family: var(--font-brand);
     font-weight: 400;
     letter-spacing: -0.02em;
