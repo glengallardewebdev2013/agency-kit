@@ -22,9 +22,10 @@
   body {
     overflow-x: clip;
   }
+  /* No smooth scrolling: it makes forms below the fold unstable for browser
+     tests, and instant jumps are kinder to motion-sensitive visitors. */
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
   }
   body {
     background: var(--color-bg);
@@ -60,9 +61,6 @@
     height: auto;
   }
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
     *,
     *::before,
     *::after {
