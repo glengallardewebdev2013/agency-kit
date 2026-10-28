@@ -31,5 +31,8 @@ const { heading, intro, id, tone = 'plain', layout = 'stack' } = Astro.props;
 <style>
   .sec {
     padding-top: var(--section-gap);
+    /* Sections below the fold skip layout and paint until they near the screen. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
   }
 </style>

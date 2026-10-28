@@ -234,7 +234,6 @@
   .figure {
     font-family: var(--font-display);
     font-weight: 400;
-    font-variation-settings: 'opsz' 72;
     letter-spacing: -0.04em;
     line-height: 0.9;
   }
@@ -292,8 +291,6 @@
     height: 76%;
     background-image: repeating-linear-gradient(90deg, rgb(252 76 2 / 0.14) 0 1px, transparent 1px 48px),
       repeating-linear-gradient(0deg, var(--color-line-2) 0 1px, transparent 1px 48px);
-    animation: guides-in 1200ms var(--ease-out) both;
-    transform-origin: top;
   }
   .guides::before {
     left: 0;
@@ -309,11 +306,6 @@
     .guides::after {
       width: 50%;
       height: 50%;
-    }
-  }
-  @keyframes guides-in {
-    from {
-      transform: scaleY(0);
     }
   }
   .rise > * {

@@ -18,9 +18,9 @@ import { foundingSpots } from '../lib/pricing';
 <Base title={home.title} description={home.description} schema={[faqSchema(home.faqs)]}>
   <section class="hero relative isolate overflow-x-clip">
     <div class="guides" aria-hidden="true"></div>
-    <div class="container-site rise flex flex-col items-center pt-16 text-center md:pt-24">
+    <div class="container-site flex flex-col items-center pt-16 text-center md:pt-24">
       <p class="chip mb-7"><span class="chip-dot" aria-hidden="true"></span>Cebu City · taking {foundingSpots} founding clients</p>
-      <h1 class="max-w-[17ch] text-[length:min(var(--text-h1),10vh+0.5rem)] [font-variation-settings:'opsz'_72]">{home.heroHeadline}</h1>
+      <h1 class="max-w-[17ch] text-[length:min(var(--text-h1),10vh+0.5rem)]">{home.heroHeadline}</h1>
       <p class="mt-6 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.35vw,1.25rem)] text-muted">{home.heroText}</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a class="btn btn-primary" href="/contact/">{home.primaryLabel}</a>
@@ -40,7 +40,7 @@ import { foundingSpots } from '../lib/pricing';
     <Pledge />
   </Section>
 
-  <Section heading="Recent work" intro="Websites Glen has built for businesses and a charity in Australia and the US.">
+  <Section heading="Recent work" intro="Websites Glen designed and built for businesses and a charity in Australia and the US.">
     <ClientWork />
   </Section>
 

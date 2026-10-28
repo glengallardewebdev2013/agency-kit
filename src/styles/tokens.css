@@ -15,19 +15,29 @@
   /* Only the letters of the name, at opsz 48: it sets the lockup and nothing else. */
   src: url('/fonts/fraunces-lockup.woff2') format('woff2');
 }
+/* Static cuts, not variable fonts: a variable font is shaped again for every
+   size and weight, which made the first layout of a long page slow on phones.
+   Newsreader is fixed at opsz 48. */
 @font-face {
   font-family: 'Newsreader';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/newsreader-latin.woff2') format('woff2');
+  src: url('/fonts/newsreader-400.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Geist';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/geist-latin.woff2') format('woff2');
+  src: url('/fonts/geist-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/geist-500.woff2') format('woff2');
 }
 /* The peso sign, which the latin files leave out. */
 @font-face {
@@ -35,23 +45,31 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/newsreader-peso.woff2') format('woff2');
+  src: url('/fonts/newsreader-peso-400.woff2') format('woff2');
   unicode-range: U+20B1;
 }
 @font-face {
   font-family: 'Geist';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/geist-peso.woff2') format('woff2');
+  src: url('/fonts/geist-peso-400.woff2') format('woff2');
+  unicode-range: U+20B1;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/geist-peso-500.woff2') format('woff2');
   unicode-range: U+20B1;
 }
 @font-face {
   font-family: 'Geist Mono';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('/fonts/geist-mono-latin.woff2') format('woff2');
+  src: url('/fonts/geist-mono-400.woff2') format('woff2');
 }
 
 :root {

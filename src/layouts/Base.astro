@@ -32,8 +32,12 @@ const jsonLd = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/newsreader-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-500.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- The small fonts too: each one found late forces the whole page to lay out again. -->
+    <link rel="preload" href="/fonts/fraunces-lockup.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-peso-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <Seo meta={meta} />
     <JsonLd data={jsonLd} />
