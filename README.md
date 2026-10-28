@@ -1,4 +1,4 @@
-# agengy-kit
+# agency-kit
 
 Starter kit for white label client websites: a reusable project that each new agency client site is cloned from.
 
