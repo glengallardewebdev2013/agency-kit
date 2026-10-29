@@ -3,7 +3,7 @@ import Logo from './Logo.astro';
 import { nav } from '../lib/nav';
 const current = Astro.url.pathname;
 ---
-<header class="site-header sticky top-0 z-40">
+<header class="site-header sticky top-0 z-40" data-nav>
   <div class="container-site flex h-[72px] items-center justify-between gap-4">
     <a href="/" class="text-ink no-underline" aria-label="GallarDesign home"><Logo /></a>
     <nav aria-label="Main" class="hidden lg:block">
@@ -32,10 +32,45 @@ const current = Astro.url.pathname;
   </div>
 </header>
 
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (nav) {
+    // only ink bands that run edge to edge, not an ink card such as the featured plan
+    const dark = [...document.querySelectorAll<HTMLElement>('.field')].filter((d) => d.offsetWidth >= innerWidth * 0.9);
+    const stuck = () => {
+      nav.classList.toggle('is-stuck', scrollY > 8);
+      const y = nav.offsetHeight - 1;
+      nav.classList.toggle('is-dark', dark.some((d) => { const r = d.getBoundingClientRect(); return r.top <= y && r.bottom > y; }));
+    };
+    addEventListener('scroll', stuck, { passive: true });
+    stuck();
+  }
+</script>
+
 <style>
+  /* As on Hallmark's site: no bar at the top of the page, a paper bar once the
+     page moves, and an ink bar over the ink sections at the foot. */
   .site-header {
+    transition: background-color 320ms var(--ease), box-shadow 320ms var(--ease), color 320ms var(--ease);
+  }
+  .site-header:global(.is-stuck) {
     background: var(--color-bg);
     box-shadow: 0 1px 0 var(--color-line);
+  }
+  .site-header:global(.is-dark) {
+    background: var(--color-field, #121211);
+    box-shadow: 0 1px 0 rgb(245 245 243 / 0.12);
+  }
+  .site-header:global(.is-dark) > div > a,
+  .site-header:global(.is-dark) nav[aria-label='Main'] .pill {
+    color: #f5f5f3 !important;
+  }
+  .site-header:global(.is-dark) nav[aria-label='Main'] .pill:hover {
+    background: rgb(245 245 243 / 0.1);
+  }
+  .site-header:global(.is-dark) .btn-primary {
+    background: #f5f5f3;
+    color: #0f0f0e;
   }
   .menu summary::-webkit-details-marker {
     display: none;

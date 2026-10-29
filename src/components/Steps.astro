@@ -1,40 +1,48 @@
 ---
-// See it first, pay once: four steps, each over a small drawing of that step.
+// See it first, pay once: four steps, each over a small drawing that plays its
+// one move when the row arrives, as on Hallmark's "It designs before it codes".
+// The questions arrive, three designs are dealt, the layout is drawn over three
+// times, and the check's findings are fixed one by one.
 const steps = [
-  { when: 'Day 0', title: 'A short call', text: "We talk about your business, your customers and what the site needs to do. If you don't need a website yet, we'll say so." },
-  { when: 'Day 1', title: 'Your content', text: 'You send your logo, 5 to 10 real photos and your services. We start the day we have them.' },
-  { when: 'Working days 2 to 4', title: 'Your free preview', text: 'A designer lays out your pages and the build runs at AI speed. You click through the real site, free.' },
-  { when: 'When you say yes', title: 'Pay once, go live', text: 'Pay only if you love it. It goes live on your domain within 2 working days, and every file and login is yours.' },
+  { when: 'Day 0 and 1', title: 'A short call, then your content', text: "We ask about your customers and what the site must do. You send your logo, photos and services. If you don't need a website yet, we'll say so." },
+  { when: 'Working days 2 and 3', title: 'A design made for you', text: 'A designer picks the look for your business. Never a template every clinic in Cebu already has.' },
+  { when: 'Working days 3 and 4', title: 'Built at AI speed', text: 'The build runs fast, and the layout is drawn for your pages and the order your customers read them.' },
+  { when: 'When you say yes', title: 'Checked, then live', text: 'We check every page on real phones before you see it. Pay only if you love it, and it goes live within 2 working days.' },
 ];
 ---
-<ol class="steps">
+<ol class="how" data-how>
   {steps.map((s, i) => (
     <li>
-      <div class="art tile" aria-hidden="true">
+      <div class:list={['art', i === 3 && 'art--lint']} aria-hidden="true">
         {i === 0 && (
           <div class="ask">
-            <p class="ask-me">We need more bookings, not just a nicer site.</p>
-            <ul class="ask-qs"><li>Who books with you today?</li><li>What do they search for?</li><li>What should the site sell first?</li></ul>
+            <p class="ask-me">We need a site for our dental clinic in Cebu, but we're not sure where to start.</p>
+            <ul class="ask-qs"><li>Any photos of the clinic?</li><li>What do patients book most?</li><li>The one thing to tap?</li></ul>
           </div>
         )}
         {i === 1 && (
-          <ul class="files">
-            <li><span class="dot"></span>logo.svg</li>
-            <li><span class="dot"></span>12 photos</li>
-            <li><span class="dot"></span>services and prices</li>
-            <li class="files-help">We start the day they arrive</li>
-          </ul>
+          <div class="deal">
+            <img class="deal-c deal-c--1" src="/work/clients/gatfoundation-phone-240.webp" width="240" height="519" alt="" loading="lazy" decoding="async" />
+            <img class="deal-c deal-c--3" src="/work/clients/exitadvisory-phone-240.webp" width="240" height="519" alt="" loading="lazy" decoding="async" />
+            <img class="deal-c deal-c--2" src="/work/clients/ridgelineroofers-phone-240.webp" width="240" height="519" alt="" loading="lazy" decoding="async" />
+            <span class="deal-tag">Your design</span>
+          </div>
         )}
         {i === 2 && (
-          <div class="wire">
-            <i class="w-nav"></i><i class="w-h1"></i><i class="w-h1b"></i><i class="w-p"></i><i class="w-btn"></i><i class="w-pic"></i><i class="w-c1"></i><i class="w-c2"></i><i class="w-c3"></i>
+          <div class="wire" data-wire data-l="0">
+            <i class="w-nav"></i><i class="w-h1"></i><i class="w-p"></i><i class="w-btn"></i><i class="w-pic"></i><i class="w-a"></i><i class="w-b"></i><i class="w-c"></i>
           </div>
         )}
         {i === 3 && (
-          <div class="live">
-            <div class="live-bar"><span class="live-dot"></span>yourbusiness.com</div>
-            <div class="live-page"><i></i><i></i><i></i></div>
-            <span class="live-tag">Paid · live</span>
+          <div class="lint">
+            <p class="lint-cmd">$ check yourbusiness.ph</p>
+            <ul class="lint-list">
+              <li>Photos too big for phones</li>
+              <li>Buttons too small to tap</li>
+              <li>Grey text that's hard to read</li>
+              <li>No Messenger button</li>
+            </ul>
+            <p class="lint-ok">0 issues · ready for you</p>
           </div>
         )}
       </div>
@@ -45,20 +53,58 @@ const steps = [
   ))}
 </ol>
 
+<script>
+  // Ported from Hallmark's js/how.js.
+  const how = document.querySelector<HTMLElement>('[data-how]');
+  if (how) {
+    const wire = how.querySelector<HTMLElement>('[data-wire]')!;
+    const qs = [...how.querySelectorAll<HTMLElement>('.ask-qs li')];
+    const issues = [...how.querySelectorAll<HTMLElement>('.lint-list li')];
+    const ok = how.querySelector<HTMLElement>('.lint-ok')!;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      issues.forEach((it) => it.classList.add('is-fixed'));
+    } else {
+      how.classList.add('is-armed');
+      let timer = 0;
+      let l = 0;
+      const draw = () => { l = (l + 1) % 3; wire.dataset.l = String(l); };
+      const play = () => {
+        qs.forEach((q, i) => setTimeout(() => q.classList.add('is-on'), 200 + i * 260));
+        setTimeout(() => how.classList.add('is-dealt'), 350);
+        issues.forEach((it, i) => setTimeout(() => it.classList.add('is-fixed'), 700 + i * 380));
+        setTimeout(() => ok.classList.add('is-on'), 700 + issues.length * 380);
+        clearInterval(timer);
+        timer = window.setInterval(draw, 1900);
+      };
+      new IntersectionObserver((es) => {
+        if (es[0].isIntersecting) {
+          if (!how.classList.contains('is-dealt')) play();
+          else { clearInterval(timer); timer = window.setInterval(draw, 1900); }
+        } else clearInterval(timer);
+      }, { threshold: 0.4 }).observe(how);
+      // the deal replays under the pointer
+      how.querySelector('.deal')!.addEventListener('pointerenter', () => {
+        how.classList.remove('is-dealt');
+        setTimeout(() => how.classList.add('is-dealt'), 260);
+      });
+    }
+  }
+</script>
+
 <style>
-  .steps {
+  .how {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.5rem;
   }
   @media (max-width: 1100px) {
-    .steps {
+    .how {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 3rem 1.5rem;
     }
   }
   @media (max-width: 560px) {
-    .steps {
+    .how {
       grid-template-columns: minmax(0, 1fr);
     }
     .art {
@@ -69,19 +115,23 @@ const steps = [
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    display: grid;
-    place-items: center;
-    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: inset 0 0 0 1px var(--color-line);
   }
+
+  /* 1: the ask */
   .ask {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 0.75rem;
-    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
   }
   .ask-me {
     align-self: flex-end;
-    max-width: 88%;
+    max-width: 92%;
     padding: 0.75rem 1rem;
     border-radius: 14px 14px 8px 14px;
     background: var(--color-ink);
@@ -94,8 +144,7 @@ const steps = [
     justify-items: start;
     gap: 0.5rem;
   }
-  .ask-qs li,
-  .files li {
+  .ask-qs li {
     padding: 0.5rem 0.75rem;
     border-radius: 999px;
     background: var(--color-bg);
@@ -103,101 +152,202 @@ const steps = [
     font-size: 0.8125rem;
     color: var(--color-ink-2);
   }
-  .files {
-    display: grid;
-    justify-items: center;
-    gap: 0.5rem;
+  .how:global(.is-armed) .ask-qs li {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 320ms var(--ease), transform 320ms var(--ease-spring);
   }
-  .files li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+  .how:global(.is-armed) .ask-qs li:global(.is-on) {
+    opacity: 1;
+    transform: none;
   }
-  .files .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--color-accent);
-  }
-  .files .files-help {
-    margin-top: 0.25rem;
-    background: transparent;
-    box-shadow: none;
-    font-family: var(--font-body);
-    color: var(--color-muted);
-  }
-  .wire {
-    position: relative;
-    width: 76%;
-    aspect-ratio: 4 / 5;
-    border-radius: 8px;
-    background: var(--color-bg);
-    box-shadow: var(--shadow-2);
-    overflow: hidden;
-  }
-  .wire i {
+
+  /* 2: the deal */
+  .deal {
     position: absolute;
-    border-radius: 3px;
-    background: var(--color-surface-2);
+    inset: 0;
   }
-  .wire .w-nav { left: 6%; top: 5%; width: 88%; height: 3.5%; background: var(--color-line-2); }
-  .wire .w-h1 { left: 8%; top: 16%; width: 70%; height: 6%; background: var(--color-ink); }
-  .wire .w-h1b { left: 8%; top: 24%; width: 48%; height: 6%; background: var(--color-ink); }
-  .wire .w-p { left: 8%; top: 34%; width: 60%; height: 3%; }
-  .wire .w-btn { left: 8%; top: 41%; width: 26%; height: 5.5%; border-radius: 999px; background: var(--color-accent); }
-  .wire .w-pic { left: 8%; top: 52%; width: 84%; height: 22%; }
-  .wire .w-c1 { left: 8%; top: 78%; width: 26%; height: 15%; }
-  .wire .w-c2 { left: 37%; top: 78%; width: 26%; height: 15%; }
-  .wire .w-c3 { left: 66%; top: 78%; width: 26%; height: 15%; }
-  .live {
-    position: relative;
-    width: 86%;
+  .deal-c {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 27%;
+    height: auto;
+    aspect-ratio: 390 / 844;
+    object-fit: cover;
+    object-position: top;
     border-radius: 8px;
-    background: var(--color-bg);
+    outline: 3px solid var(--color-ink);
+    outline-offset: -1px;
     box-shadow: var(--shadow-card);
-    overflow: hidden;
+    transform-origin: 50% 90%;
+    transition: transform 700ms var(--ease-spring);
   }
-  .live-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--color-line);
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--color-ink-2);
+  .deal-c--1 {
+    transform: translate(-50%, -46%) rotate(-14deg) translateX(-44%);
   }
-  .live-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background: #1f9d55;
-    box-shadow: 0 0 0 3px rgb(31 157 85 / 0.16);
+  .deal-c--3 {
+    transform: translate(-50%, -46%) rotate(14deg) translateX(44%);
   }
-  .live-page {
-    display: grid;
-    gap: 6px;
-    padding: 1rem 0.75rem 1.5rem;
+  .deal-c--2 {
+    z-index: 2;
+    transform: translate(-50%, -56%) scale(1.08);
   }
-  .live-page i {
-    height: 8px;
-    border-radius: 3px;
-    background: var(--color-surface-2);
-  }
-  .live-page i:first-child { width: 70%; height: 14px; background: var(--color-ink); }
-  .live-page i:nth-child(2) { width: 55%; }
-  .live-page i:nth-child(3) { width: 30%; height: 14px; border-radius: 999px; background: var(--color-accent); }
-  .live-tag {
+  .deal-tag {
     position: absolute;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    padding: 2px 10px;
+    left: 50%;
+    bottom: 9%;
+    z-index: 3;
+    padding: 4px 12px;
     border-radius: 999px;
     background: var(--color-ink);
     color: var(--color-bg);
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 500;
+    transform: translateX(-50%);
+    transition: opacity 320ms var(--ease) 300ms;
+  }
+  .how:global(.is-armed) .deal-c {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .how:global(.is-armed) .deal-tag {
+    opacity: 0;
+  }
+  .how:global(.is-dealt) .deal-c--1 {
+    transform: translate(-50%, -46%) rotate(-14deg) translateX(-44%);
+  }
+  .how:global(.is-dealt) .deal-c--3 {
+    transform: translate(-50%, -46%) rotate(14deg) translateX(44%);
+  }
+  .how:global(.is-dealt) .deal-c--2 {
+    transform: translate(-50%, -56%) scale(1.08);
+  }
+  .how:global(.is-dealt) .deal-tag {
+    opacity: 1;
+  }
+
+  /* 3: the layout, drawn over */
+  .art:has(.wire) {
+    display: grid;
+    place-items: center;
+    padding: 12%;
+  }
+  .wire {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--color-bg);
+    box-shadow: var(--shadow-2);
+  }
+  @media (max-width: 560px) {
+    .wire {
+      width: auto;
+      height: 100%;
+    }
+  }
+  .wire i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-surface-2);
+    transform-origin: 0 0;
+    transform: translate(calc(var(--x) * 1%), calc(var(--y) * 1%)) scale(calc(var(--w) / 100), calc(var(--h) / 100));
+    transition: transform 650ms var(--ease-out), background-color 650ms var(--ease-out);
+  }
+  .wire .w-nav { --x: 6; --y: 5; --w: 88; --h: 3.5; z-index: 1; background: var(--color-line-2); }
+  .wire .w-h1 { z-index: 1; background: var(--color-ink); }
+  .wire .w-btn { z-index: 1; background: var(--color-accent); }
+  .wire .w-pic { z-index: 0; background: #cfc6ba; }
+  .wire[data-l='0'] .w-h1 { --x: 6; --y: 15; --w: 44; --h: 12; }
+  .wire[data-l='0'] .w-p { --x: 6; --y: 31; --w: 38; --h: 5; }
+  .wire[data-l='0'] .w-btn { --x: 6; --y: 40; --w: 20; --h: 5; }
+  .wire[data-l='0'] .w-pic { --x: 54; --y: 15; --w: 40; --h: 34; }
+  .wire[data-l='0'] .w-a { --x: 6; --y: 58; --w: 27; --h: 34; }
+  .wire[data-l='0'] .w-b { --x: 36.5; --y: 58; --w: 27; --h: 34; }
+  .wire[data-l='0'] .w-c { --x: 67; --y: 58; --w: 27; --h: 34; }
+  .wire[data-l='1'] .w-h1 { --x: 18; --y: 14; --w: 64; --h: 9; }
+  .wire[data-l='1'] .w-p { --x: 28; --y: 26; --w: 44; --h: 4; }
+  .wire[data-l='1'] .w-btn { --x: 40; --y: 33; --w: 20; --h: 5; }
+  .wire[data-l='1'] .w-pic { --x: 6; --y: 43; --w: 88; --h: 30; }
+  .wire[data-l='1'] .w-a { --x: 6; --y: 77; --w: 43; --h: 18; }
+  .wire[data-l='1'] .w-b { --x: 51; --y: 77; --w: 43; --h: 18; }
+  .wire[data-l='1'] .w-c { --x: 51; --y: 95; --w: 43; --h: 0; }
+  .wire[data-l='2'] .w-pic { --x: 0; --y: 0; --w: 100; --h: 56; }
+  .wire[data-l='2'] .w-nav { background: rgb(255 255 255 / 0.7); }
+  .wire[data-l='2'] .w-h1 { --x: 6; --y: 34; --w: 56; --h: 10; background: var(--color-bg); }
+  .wire[data-l='2'] .w-p { --x: 6; --y: 62; --w: 50; --h: 4; }
+  .wire[data-l='2'] .w-btn { --x: 6; --y: 47; --w: 22; --h: 5; }
+  .wire[data-l='2'] .w-a { --x: 6; --y: 71; --w: 88; --h: 6; }
+  .wire[data-l='2'] .w-b { --x: 6; --y: 80; --w: 88; --h: 6; }
+  .wire[data-l='2'] .w-c { --x: 6; --y: 89; --w: 88; --h: 6; }
+
+  /* 4: the check */
+  .art--lint {
+    background: var(--color-field);
+    box-shadow: none;
+  }
+  .lint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 100%;
+    padding: 1.5rem;
+    color: #c9c9c4;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+  .lint-cmd {
+    color: #8e8e88;
+  }
+  .lint-list {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .lint-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    transition: color 320ms var(--ease);
+  }
+  .lint-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    width: 12px;
+    height: 12px;
+    background: #e5484d;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3.5 3.5l5 5M8.5 3.5l-5 5' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+    transition: background-color 320ms var(--ease);
+  }
+  .lint-list li:global(.is-fixed) {
+    color: #8e8e88;
+    text-decoration: line-through;
+    text-decoration-color: rgb(245 245 243 / 0.22);
+  }
+  .lint-list li:global(.is-fixed)::before {
+    background: #1f9d55;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5l2.2 2.2L9.5 3.8' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .lint-ok {
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgb(31 157 85 / 0.16);
+    color: #5bd38d;
+    font-weight: 500;
+    transition: opacity 320ms var(--ease), transform 320ms var(--ease-spring);
+  }
+  .how:global(.is-armed) .lint-ok {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  .how:global(.is-armed) .lint-ok:global(.is-on) {
+    opacity: 1;
+    transform: none;
   }
 </style>

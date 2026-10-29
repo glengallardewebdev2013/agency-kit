@@ -8,16 +8,20 @@ export interface ClientSite {
   kind: string;
   where: string;
   note: string;
+  /** What a visitor finds on the site, as seen on its pages. Not results or numbers. */
+  features: string[];
 }
 
 export const clientSites: ClientSite[] = [
-  { slug: 'exitadvisory', name: 'Exit Advisory Group', url: 'https://exitadvisory.com.au/', kind: 'M&A advisory and business brokerage', where: 'Sydney, Melbourne and Perth', note: 'Valuations, sales and exit planning, with case studies, testimonials, articles and a newsletter.' },
-  { slug: 'prefilters', name: 'Pre-Filters', url: 'https://prefilters.com.au/', kind: 'Online store for water filters', where: 'Australia', note: 'A store that sorts filters by water source, with a water quiz, bundles and subscribe-and-save refills.' },
-  { slug: 'recovadapt', name: 'RecovAdapt', url: 'https://recovadapt.com.au/', kind: 'Online supplement store', where: 'Australia', note: 'Naturopath-formulated supplements, with a health quiz, goal-based bundles and customer reviews.' },
-  { slug: 'ridgelineroofers', name: 'Ridgeline Roofers', url: 'https://www.ridgelineroofers.com/', kind: 'Roofing, siding and gutters', where: 'Ashburn, Virginia, USA', note: 'A family roofing company, with Google reviews, a page per service, service areas and a project map.' },
-  { slug: 'brandoninsurance', name: 'Brandon Insurance', url: 'https://brandoninsuranceinc.com/', kind: 'Independent insurance agency', where: 'Brandon, Florida, USA', note: 'A family-owned agency since 1960, with a page per insurance type, carrier partners, testimonials, a blog and quote requests.' },
-  { slug: 'gatfoundation', name: 'GAT Foundation', url: 'https://gatfoundation.org.au/', kind: 'Volunteer-run charity', where: 'Melbourne, serving the Philippines', note: 'Collects books in Australia and rehomes them in Philippine schools, with impact numbers and ways to get involved.' },
+  { slug: 'exitadvisory', name: 'Exit Advisory Group', url: 'https://exitadvisory.com.au/', kind: 'M&A advisory and business brokerage', where: 'Sydney, Melbourne and Perth', note: 'Valuations, sales and exit planning, with case studies, testimonials, articles and a newsletter.', features: ['A home page that leads with the one call to action: book a confidential call', 'An Exit Readiness Score that owners can take online', 'Case studies and testimonials from businesses that sold', 'Articles, a podcast, a book and a newsletter sign-up', 'Offices in Sydney, Melbourne and Perth'] },
+  { slug: 'prefilters', name: 'Pre-Filters', url: 'https://prefilters.com.au/', kind: 'Online store for water filters', where: 'Australia', note: 'A store that sorts filters by water source, with a water quiz, bundles and subscribe-and-save refills.', features: ['Filters sorted by water source: town, tank, bore and caravan', 'A water quiz that matches a household with the right system', 'Bundles, add-ons and subscribe-and-save replacement filters', 'Customer accounts, a support centre and an affiliate program'] },
+  { slug: 'recovadapt', name: 'RecovAdapt', url: 'https://recovadapt.com.au/', kind: 'Online supplement store', where: 'Australia', note: 'Naturopath-formulated supplements, with a health quiz, goal-based bundles and customer reviews.', features: ['Naturopath-formulated supplements, shopped by health goal', 'A health quiz that points each customer to the right formula', 'Goal-based bundles, subscriptions and customer reviews', 'Free shipping and a 30-day money-back guarantee shown up front'] },
+  { slug: 'ridgelineroofers', name: 'Ridgeline Roofers', url: 'https://www.ridgelineroofers.com/', kind: 'Roofing, siding and gutters', where: 'Ashburn, Virginia, USA', note: 'A family roofing company, with Google reviews, a page per service, service areas and a project map.', features: ['A page for each service: roofing, siding and gutters', 'Service-area pages for the towns they cover in Northern Virginia', 'Their Google rating shown on every page', 'A project map, and a Call Us Today button on the first screen'] },
+  { slug: 'brandoninsurance', name: 'Brandon Insurance', url: 'https://brandoninsuranceinc.com/', kind: 'Independent insurance agency', where: 'Brandon, Florida, USA', note: 'A family-owned agency since 1960, with a page per insurance type, carrier partners, testimonials, a blog and quote requests.', features: ['A page for each type of insurance they sell', 'The carriers they work with, shown as logos', 'Start a quote and schedule a call from the first screen', 'Testimonials and a blog for local customers'] },
+  { slug: 'gatfoundation', name: 'GAT Foundation', url: 'https://gatfoundation.org.au/', kind: 'Volunteer-run charity', where: 'Melbourne, serving the Philippines', note: 'Collects books in Australia and rehomes them in Philippine schools, with impact numbers and ways to get involved.', features: ['Impact numbers at the top: books rehomed, schools and educators reached', 'Stories and photos from the schools in the Philippines', 'Ways to give, volunteer and get involved', 'Registered charity details, with donations over $2 tax-deductible'] },
 ];
+
+export const clientSite = (slug: string) => clientSites.find((c) => c.slug === slug);
 
 // Concept sites: made-up businesses designed to show the range of work.
 // They are not client work, and every page that shows them says so.

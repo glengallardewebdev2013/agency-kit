@@ -31,6 +31,7 @@ const jsonLd = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/newsreader-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/geist-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -56,5 +57,14 @@ const jsonLd = [
       <slot />
     </main>
     <Footer />
+    <script>
+      // As on Hallmark's site: each section below the fold rises once as it arrives.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const blocks = [...document.querySelectorAll<HTMLElement>('main .sec > div, main .made > .container-site')].filter((b) => b.getBoundingClientRect().top > innerHeight);
+        blocks.forEach((b) => b.classList.add('reveal'));
+        const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+        blocks.forEach((b) => io.observe(b));
+      }
+    </script>
   </body>
 </html>

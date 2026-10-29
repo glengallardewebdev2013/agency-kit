@@ -308,6 +308,15 @@
       height: 50%;
     }
   }
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  }
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
   .rise > * {
     animation: rise 760ms var(--ease-out) both;
   }

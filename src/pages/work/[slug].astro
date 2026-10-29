@@ -1,0 +1,157 @@
+---
+// A page for each client site: the home page on a laptop and a phone, what the
+// site does, and a link to the live site at the end. Cards on the home page open
+// these pages, so visitors stay on GallarDesign while they look at the work.
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { clientSites, type ClientSite } from '../../lib/work';
+
+export function getStaticPaths() {
+  return clientSites.map((site, i) => ({
+    params: { slug: site.slug },
+    props: { site, next: clientSites[(i + 1) % clientSites.length] },
+  }));
+}
+
+interface Props { site: ClientSite; next: ClientSite }
+const { site, next } = Astro.props;
+const host = new URL(site.url).hostname.replace(/^www\./, '');
+---
+<Base
+  title={`${site.name}: website design and build`}
+  description={`${site.name}, ${site.kind.toLowerCase()} in ${site.where}. Designed and built by Glen at GallarDesign. ${site.note}`}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }, { name: site.name, path: `/work/${site.slug}/` }]}
+>
+  <section class="container-site rise pt-12 md:pt-16">
+    <p class="label">{site.kind} · {site.where}</p>
+    <h1 class="mt-3 max-w-[16ch] text-[length:var(--text-h1)]">{site.name}</h1>
+    <p class="mt-6 max-w-2xl text-[clamp(1.0625rem,0.95rem+0.35vw,1.25rem)] text-muted">{site.note}</p>
+    <dl class="facts mt-10">
+      <div><dt>Role</dt><dd>Design and development</dd></div>
+      <div><dt>Built by</dt><dd>Glen Gallarde</dd></div>
+      <div><dt>Live at</dt><dd>{host}</dd></div>
+    </dl>
+  </section>
+
+  <section class="container-site mt-12 md:mt-16" aria-label="Screenshots">
+    <div class="case-shots">
+      <figure class="case-desk">
+        <div class="case-bar" aria-hidden="true"><i></i><i></i><i></i><span>{host}</span></div>
+        <img
+          src={`/work/clients/${site.slug}-desktop-1200.webp`}
+          srcset={`/work/clients/${site.slug}-desktop-600.webp 600w, /work/clients/${site.slug}-desktop-1200.webp 1200w`}
+          sizes="(min-width: 1288px) 940px, 76vw"
+          width="1200"
+          height="750"
+          alt={`The ${site.name} home page on a laptop`}
+          fetchpriority="high"
+        />
+      </figure>
+      <figure class="case-phone">
+        <img src={`/work/clients/${site.slug}-phone-240.webp`} width="240" height="519" alt={`The ${site.name} home page on a phone`} />
+      </figure>
+    </div>
+  </section>
+
+  <Section heading="What's on the site" intro="Every page was designed for this business and built to work on phones first.">
+    <ul class="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+      {site.features.map((f) => (
+        <li class="flex gap-3 border-t border-line pt-5">
+          <svg class="mt-[0.35em] h-3.5 w-3.5 flex-none text-accent" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          <span>{f}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-12 flex flex-wrap items-center gap-3">
+      <a href={`/work/${next.slug}/`} class="btn btn-primary">Next: {next.name}</a>
+      <a href="/work/" class="btn btn-secondary">All work</a>
+      <a href={site.url} rel="noopener" target="_blank" class="ml-auto text-[0.9375rem] text-muted hover:text-ink">Visit {host} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+  </Section>
+
+  <CtaBand heading="Want a site like this?" text="We build your website first, free. You pay once, only if you love it." label="Get my free preview" />
+</Base>
+
+<style>
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .facts dt {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+  .facts dd {
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+  .case-shots {
+    position: relative;
+    padding-right: 12%;
+  }
+  .case-desk {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+  }
+  .case-desk img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .case-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+  .case-bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--color-line-2);
+  }
+  .case-bar span {
+    margin-inline: auto;
+    padding: 2px 14px;
+    border-radius: 999px;
+    background: var(--color-bg);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+  .case-phone {
+    position: absolute;
+    right: 0;
+    bottom: -6%;
+    width: 21%;
+    margin: 0;
+    padding: 4px;
+    border-radius: 22px;
+    background: oklch(24% 0.004 260);
+    box-shadow: 0 1px 2px rgb(15 15 14 / 0.12), 0 30px 56px -26px rgb(15 15 14 / 0.45), inset 0 0 0 1px rgb(255 255 255 / 0.18);
+  }
+  .case-phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+  }
+  @media (max-width: 560px) {
+    .case-phone {
+      border-radius: 14px;
+      padding: 3px;
+    }
+    .case-phone img {
+      border-radius: 11px;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import WorkGrid from '../../components/WorkGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+---
+<Base
+  title="Our work: websites designed and built by GallarDesign"
+  description="Websites Glen designed and built for businesses and a charity in Australia and the US, plus design samples for the kinds of business we build for in Cebu."
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }]}
+>
+  <Hero eyebrow="Our work" headline="Websites we've designed and built" text="Client sites for businesses and a charity in Australia and the US, each designed and built by Glen. Open one to see what's on it." primary={{ label: 'Get my free preview', href: '/contact/' }} secondary={{ label: 'See the prices', href: '/pricing/' }} />
+  <Section>
+    <WorkGrid />
+  </Section>
+  <CtaBand heading="Your website could be next" text="We build it first, free. You pay once, only if you love it." label="Get my free preview" />
+</Base>

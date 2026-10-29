@@ -1,0 +1,250 @@
+---
+// The home page's head, with Hallmark's proofreader's edit. The page states the
+// headline as written. Where motion is allowed, a tiny script sets one word to
+// its "before" (struck) before the first paint, and the script below corrects
+// it once the hand is dealt: a stroke is drawn through the old word, the new
+// word is written small above it in orange, then set into the line at full
+// size as the struck word falls out, and last, ink runs into the orange.
+interface Props { text: string; word: string; before: string; class?: string }
+const { text, word, before, class: className } = Astro.props;
+// split into words, keeping the edited word apart from any punctuation after it
+const parts = text.split(' ').flatMap((w) => {
+  if (w === word) return [{ w, edit: true }];
+  if (w.startsWith(word) && /^[.,!?]+$/.test(w.slice(word.length))) return [{ w: word, edit: true, tail: w.slice(word.length) }];
+  return [{ w }];
+}) as { w: string; edit?: boolean; tail?: string }[];
+---
+<h1 class:list={['hl', className]} data-hl data-before={before} aria-label={text}>
+  {parts.map((p, i) => (
+    <Fragment>
+      {p.edit ? <span class="hl-w hl-the">{p.w}</span> : <span class="hl-w">{p.w}</span>}
+      {p.tail && <span class="hl-w">{p.tail}</span>}
+      {i < parts.length - 1 && ' '}
+    </Fragment>
+  ))}
+</h1>
+<script is:inline>
+  /* set the "before" word ahead of the first paint, where there is motion to show the edit */
+  (function () {
+    var h = document.querySelector('[data-hl]');
+    if (!h || !h.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var a = document.createElement('span');
+    a.className = 'hl-w hl-a';
+    a.textContent = h.getAttribute('data-before');
+    a.setAttribute('aria-hidden', 'true');
+    h.querySelector('.hl-the').before(a);
+    h.classList.add('is-a');
+  })();
+</script>
+
+<script>
+  // Ported from Hallmark's js/headline.js, with a straight strike through a
+  // word in place of the slash through an A.
+  const h = document.querySelector<HTMLElement>('[data-hl]');
+  if (h && h.classList.contains('is-a')) {
+    const a = h.querySelector<HTMLElement>('.hl-a')!;
+    const the = h.querySelector<HTMLElement>('.hl-the')!;
+    const words = [...h.querySelectorAll<HTMLElement>('.hl-w')].filter((w) => w !== a && w !== the);
+    const ACC = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#FC4C02';
+    const SVG = 'http://www.w3.org/2000/svg';
+    const START = 950; // ms after navigation: the head has risen and most of the hand is down
+    const T = { hit: 300, write: 400, out: 860, go: 940, land: 1600, ink: 1720, inked: 2200 };
+    const anims: Animation[] = [];
+    const ghosts: HTMLElement[] = [];
+    let done = false;
+
+    const track = (el: Element, prop: string, pts: [number, string | number, string?][]) => {
+      const end = pts[pts.length - 1][0];
+      const an = el.animate(pts.map(([t, v, e]) => ({ offset: t / end, [prop]: v, easing: e || 'linear' })), { duration: end, fill: 'both' });
+      anims.push(an);
+      return an;
+    };
+    const SET = 'cubic-bezier(.32,0,.12,1)';
+    const HIT = 'cubic-bezier(.2,.7,.2,1)';
+    const rel = (r: DOMRect) => { const o = h.getBoundingClientRect(); return { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height }; };
+    const box = (el: Element) => rel(el.getBoundingClientRect());
+    const baseOf = (el: Element) => { const i = document.createElement('i'); i.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline'; el.append(i); const y = box(i).y; i.remove(); return y; };
+    const measure = () => new Map(words.map((w) => [w, box(w)]));
+    const px = (x: number, y: number) => `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
+    const ghost = (text: string, b: { x: number; y: number }) => {
+      const g = document.createElement('span');
+      g.className = 'hl-ghost';
+      g.setAttribute('aria-hidden', 'true');
+      g.innerHTML = `<span class="hl-t"><span>${text}</span></span>`;
+      g.style.left = b.x + 'px';
+      g.style.top = b.y + 'px';
+      h.append(g);
+      ghosts.push(g);
+      return g;
+    };
+
+    const finish = (soft?: boolean) => {
+      if (done) return;
+      done = true;
+      h.classList.remove('is-a', 'is-run');
+      a.remove();
+      const inGhost = (an: Animation) => ghosts.some((g) => g.contains((an.effect as KeyframeEffect).target as Node));
+      anims.forEach((an) => { if (soft !== true || !inGhost(an)) an.cancel(); });
+      ghosts.forEach((g) => {
+        if (soft !== true) { g.remove(); return; }
+        g.animate([{ opacity: getComputedStyle(g).opacity }, { opacity: 0 }], { duration: 180, fill: 'forwards' }).finished.then(() => {
+          g.remove();
+          if (!ghosts.some((o) => o.isConnected)) anims.forEach((an) => an.cancel());
+        });
+      });
+    };
+
+    // the strike: one orange stroke through the old word, drawn left to right, at a slight lean
+    const strike = (gA: HTMLElement, bA: { x: number; y: number; w: number }, baseA: number, E: number) => {
+      const sw = 0.07 * E;
+      const y0 = baseA - bA.y - 0.28 * E;
+      const y1 = baseA - bA.y - 0.36 * E;
+      const x0 = -0.06 * E;
+      const x1 = bA.w + 0.06 * E;
+      const L = x0 - sw, Tp = y1 - sw, W = x1 - x0 + 2 * sw, H = y0 - y1 + 2 * sw;
+      const svg = document.createElementNS(SVG, 'svg');
+      svg.setAttribute('class', 'hl-strike');
+      svg.setAttribute('width', String(W));
+      svg.setAttribute('height', String(H));
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.style.left = L + 'px';
+      svg.style.top = Tp + 'px';
+      const p = document.createElementNS(SVG, 'path');
+      p.setAttribute('d', `M${(x0 - L).toFixed(2)} ${(y0 - Tp).toFixed(2)} L${(x1 - L).toFixed(2)} ${(y1 - Tp).toFixed(2)}`);
+      p.setAttribute('pathLength', '1');
+      p.style.strokeWidth = sw + 'px';
+      svg.append(p);
+      gA.append(svg);
+      return { p, top: baseA - 0.72 * E };
+    };
+
+    const run = () => {
+      const E = parseFloat(getComputedStyle(h).fontSize);
+      const before = measure();
+      const bA = box(a);
+      const baseA = baseOf(a);
+      h.classList.remove('is-a');
+      h.classList.add('is-run');
+      const after = measure();
+      const fT = box(the);
+      const bOff = baseOf(the) - fT.y;
+
+      // the strike, then the old word takes the hit and greys out
+      const gA = ghost(a.textContent || '', bA);
+      const gAi = gA.firstElementChild!.firstElementChild!;
+      const s = strike(gA, bA, baseA, E);
+      gA.style.transformOrigin = `${bA.w / 2}px ${baseA - bA.y}px`;
+      track(s.p, 'strokeDashoffset', [[0, 1, 'cubic-bezier(.62,0,.24,1)'], [T.hit, 0]]);
+      const k = T.hit * 0.55;
+      track(gAi, 'opacity', [[0, 1], [k, 1, HIT], [k + 260, 0.28]]);
+      // then it falls out of the line, strike and all, a beat before the new word arrives
+      track(gA, 'transform', [[0, 'none'], [T.out - 60, 'none', 'cubic-bezier(.5,0,.75,0)'], [T.out + 300, `translateY(${0.5 * E}px) rotate(-6deg)`]]);
+      track(gA, 'opacity', [[0, 1], [T.out - 60, 1, 'cubic-bezier(.3,0,.7,.4)'], [T.out + 200, 0]]);
+
+      // the new word: written above the old one in orange, then set into the line
+      const gT = ghost(the.textContent || '', fT);
+      const gTm = gT.firstElementChild as HTMLElement;
+      const gTi = gTm.firstElementChild as HTMLElement;
+      gTi.style.color = ACC;
+      const sc = 0.4;
+      const tx = bA.x + bA.w / 2 - (sc * fT.w) / 2 - fT.x;
+      const ty = s.top - 0.22 * E - fT.y - sc * bOff;
+      track(gT, 'transform', [[0, `translateX(${tx}px)`], [T.go, `translateX(${tx}px)`, SET], [T.land, 'none']]);
+      track(gTm, 'transform', [[0, `translateY(${ty}px) scale(${sc})`], [T.go, `translateY(${ty}px) scale(${sc})`, 'cubic-bezier(.5,0,.16,1)'], [T.land, 'none']]);
+      track(gTi, 'clipPath', [[0, 'inset(-40% 104% -40% -6%)'], [T.write, 'inset(-40% 104% -40% -6%)', 'cubic-bezier(.35,.4,.2,1)'], [T.write + 360, 'inset(-40% -6% -40% -6%)']]);
+      track(gTi, 'opacity', [[0, 0], [T.write, 0], [T.write + 80, 1], [T.inked - 1, 1], [T.inked, 0]]);
+      // the ink: a copy over the orange, revealed left to right with a soft edge
+      const ink = document.createElement('span');
+      ink.className = 'hl-ink';
+      ink.textContent = the.textContent;
+      gTm.append(ink);
+      ['maskPosition', 'webkitMaskPosition'].forEach((prop) => track(ink, prop, [[0, '100% 0'], [T.ink, '100% 0', 'cubic-bezier(.45,0,.2,1)'], [T.inked, '0% 0']]));
+
+      // the line opens or closes round the new word
+      words.forEach((w, i) => {
+        const b = before.get(w)!;
+        const f = after.get(w)!;
+        const dx = b.x - f.x;
+        const dy = b.y - f.y;
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+        track(w, 'transform', [[0, px(dx, dy)], [T.go + i * 16, px(dx, dy), SET], [T.land + i * 16, 'none']]);
+      });
+      return T.inked;
+    };
+
+    const go = () => {
+      if (done) return;
+      const r = h.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) { finish(); return; }
+      const end = run();
+      setTimeout(() => finish(true), end + 40);
+      const w0 = innerWidth;
+      addEventListener('resize', () => { if (innerWidth !== w0) finish(); });
+    };
+    // wait for the display face (the edit is measured in it), but never past three seconds
+    const start = () => {
+      const face = document.fonts.load(`400 ${getComputedStyle(h).fontSize} Newsreader`).then(() => document.fonts.ready);
+      Promise.race([face, new Promise((r) => setTimeout(r, 3000))]).then(() => setTimeout(() => requestAnimationFrame(go), Math.max(0, START - performance.now())));
+    };
+    if (document.hidden) document.addEventListener('visibilitychange', function wake() { if (!document.hidden) { document.removeEventListener('visibilitychange', wake); start(); } });
+    else start();
+  }
+</script>
+
+<style>
+  .hl {
+    position: relative;
+  }
+  .hl :global(.hl-w) {
+    display: inline-block;
+  }
+  .hl :global(.hl-a) {
+    display: none;
+  }
+  .hl:global(.is-a) :global(.hl-a) {
+    display: inline-block;
+  }
+  .hl:global(.is-a) .hl-the {
+    display: none;
+  }
+  .hl:global(.is-run) .hl-the {
+    visibility: hidden;
+  }
+  .hl :global(.hl-ghost) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hl :global(.hl-t) {
+    position: relative;
+    display: inline-block;
+    transform-origin: 0 0;
+  }
+  .hl :global(.hl-t > span) {
+    display: inline-block;
+  }
+  .hl :global(.hl-ink) {
+    position: absolute;
+    left: -0.15em;
+    top: -0.25em;
+    padding: 0.25em 0.15em;
+    color: var(--color-ink);
+    -webkit-mask: linear-gradient(90deg, #000 44%, transparent 56%) 100% 0 / 260% 100% no-repeat;
+    mask: linear-gradient(90deg, #000 44%, transparent 56%) 100% 0 / 260% 100% no-repeat;
+  }
+  .hl :global(.hl-strike) {
+    position: absolute;
+    display: block;
+    max-width: none;
+    overflow: visible;
+  }
+  .hl :global(.hl-strike path) {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+    stroke-dasharray: 1 1;
+  }
+</style>

@@ -1,9 +1,10 @@
 ---
 // The closing call to action. It sits on ink and joins the footer below it.
-interface Props { heading: string; text?: string; label?: string; href?: string }
-const { heading, text, label = 'Start a project', href = '/contact/' } = Astro.props;
+// joined: it follows another ink section (the work wheel), so no gap above it.
+interface Props { heading: string; text?: string; label?: string; href?: string; joined?: boolean }
+const { heading, text, label = 'Start a project', href = '/contact/', joined = false } = Astro.props;
 ---
-<section class="cta field relative isolate overflow-clip">
+<section class:list={['cta field relative isolate overflow-clip', { joined }]}>
   <div class="cta-glow" aria-hidden="true"></div>
   <div class="container-site flex flex-col items-center pt-28 text-center md:pt-36">
     <h2 class="max-w-[18ch] text-[length:var(--text-h2)]">{heading}</h2>
@@ -15,6 +16,9 @@ const { heading, text, label = 'Start a project', href = '/contact/' } = Astro.p
 <style>
   .cta {
     margin-top: var(--section-gap);
+  }
+  .cta.joined {
+    margin-top: 0;
   }
   .cta-glow {
     position: absolute;
