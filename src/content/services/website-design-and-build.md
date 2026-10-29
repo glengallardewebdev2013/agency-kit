@@ -4,7 +4,7 @@ summary: A custom-designed website for your business. See it free in 3 working d
 order: 1
 faqs:
   - question: Do you use templates?
-    answer: No. A designer lays out your pages for your business and your customers. AI speeds up the build, not the design decisions, and we tell you what AI did and what a person did.
+    answer: No. Every site is made for your business and your customers, and a person leads it and makes the final calls. AI does much of the design and build work under that direction, and we tell you what AI did and what a person did.
   - question: What do you need from me?
     answer: A short call, then your logo, 5 to 10 real photos and your list of services. We start the day we have them.
 ---

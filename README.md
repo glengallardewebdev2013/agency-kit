@@ -1,6 +1,6 @@
 # GallarDesign website
 
-GallarDesign's own site: human-designed websites, built at AI speed. It sells
+GallarDesign's own site: human-led, AI-driven websites. It sells
 websites directly to small businesses (med spas and aesthetic clinics first,
 then home-improvement contractors), with white label work for agencies as a
 second line. Built on the agency kit, so everything below about the kit
