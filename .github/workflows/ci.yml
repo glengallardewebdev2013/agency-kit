@@ -27,6 +27,8 @@ jobs:
         run: npm run check
       - name: Unit tests
         run: npm test
+      - name: Intake assets cleared
+        run: npm run intake:check
       - name: Build
         run: npm run build
       - name: Install Playwright browser

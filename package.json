@@ -16,6 +16,8 @@
     "test:e2e": "playwright test",
     "lhci": "lhci autorun",
     "new-site": "node scripts/new-site.mjs",
+    "intake": "node scripts/intake.mjs",
+    "intake:check": "node scripts/intake-check.mjs",
     "handoff": "node scripts/handoff.mjs",
     "deploy": "astro build && wrangler deploy"
   },
