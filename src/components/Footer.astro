@@ -5,6 +5,11 @@ const a = settings.address;
 const hasAddress = Boolean(a.street || a.city);
 const tel = settings.phone.replace(/[^\d+]/g, '');
 const year = new Date().getFullYear();
+const SOCIAL_NAMES: Record<string, string> = { facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', youtube: 'YouTube', youtu: 'YouTube', tiktok: 'TikTok', fb: 'Facebook' };
+const socialName = (url: string) => {
+  const host = new URL(url).hostname.replace(/^(www|m|web)\./, '').split('.')[0];
+  return SOCIAL_NAMES[host] ?? host;
+};
 ---
 <footer class="mt-24 border-t border-line bg-surface">
   <div class="container-site grid gap-10 py-12 md:grid-cols-3">
@@ -27,6 +32,11 @@ const year = new Date().getFullYear();
         )}
         {settings.hours && <li>{settings.hours}</li>}
       </ul>
+      {settings.social.length > 0 && (
+        <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-1" aria-label="Social profiles">
+          {settings.social.map((url) => <li><a href={url} rel="me noopener" target="_blank">{socialName(url)}</a></li>)}
+        </ul>
+      )}
     </div>
     <nav aria-label="Footer">
       <p class="font-semibold">Pages</p>

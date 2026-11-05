@@ -22,6 +22,12 @@ npm run new-site
 npm run cms            # then open http://127.0.0.1:4321/keystatic
 ```
 
+**Client has no assets yet but is on social media?** Start from their
+profiles: `npm run intake -- <facebook, instagram, tiktok... links>`, then ask
+Claude Code to run the social brand brief skill. The full process, permission
+message and asset rules are in
+[docs/onboarding/social-first-intake.md](docs/onboarding/social-first-intake.md).
+
 Apply the client's design in `src/styles/tokens.css` (every colour and font is
 a token there) and in the components under `src/components`. For new designs,
 use the Hallmark skill and its `sloplint` check.
@@ -50,6 +56,8 @@ use the Hallmark skill and its `sloplint` check.
 | `npm run test:e2e` | browser tests against the build: every page, phone/tablet/desktop overflow, nav, forms, internal links, no kit branding |
 | `npm run lhci` | Lighthouse budgets (90+ performance, accessibility, best practices, SEO) |
 | `npm run new-site` | set the basics for a new client |
+| `npm run intake -- <links>` | start a social-first intake: `intake/` folder, brief, asset list, links into site settings |
+| `npm run intake:check` | fail if any picked intake asset lacks a source, cleared rights or alt text |
 | `npm run handoff` | write an unbranded handoff pack to `handoff/` |
 | `npm run deploy` | build and deploy to Cloudflare with wrangler |
 
